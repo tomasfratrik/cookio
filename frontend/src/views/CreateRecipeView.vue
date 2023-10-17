@@ -7,7 +7,7 @@
             <label>Description:</label>
             <input type="text" v-model="desc">
             <div class="submit">
-                <button>Sign up</button>
+                <button>Create</button>
             </div>
         </form>
     </div>
@@ -36,7 +36,7 @@ export default {
             }
             this.title = ''
             this.desc = ''
-            
+
         }
     }
 }
