@@ -9,26 +9,6 @@
 <script>
 import axios from 'axios'
 export default {
-  data () {
-    return {
-      recipes: []
-    }
-  },
-  // methods: {
-  //   async getRecipes () {
-  //     try {
-  //       const response = await axios.get('http://localhost:5000/recipes')
-  //       this.recipes = response.data
-  //       console.log(this.recipes)
-  //     }
-  //     catch(err){
-  //       console.log(err)
-  //     }
-  //   }
-  // },
-  // created () {
-  //   this.getRecipes()
-  // }
 }
 </script>
 
