@@ -6,5 +6,9 @@
   {
     "name": "Burger",
     "desc": "Bad meal"
+  },
+  {
+    "name": "Recipe title",
+    "desc": "Recipe description"
   }
 ]
