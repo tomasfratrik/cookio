@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 // import CreateRecipeView from '../views/CreateRecipeView.vue'
 import CreateRecipeView from '@/views/CreateRecipeView.vue'
+import AssignRecipeClassView from '@/views/AssignRecipeClassView.vue'
+
 
 const routes = [
   {
@@ -10,10 +12,9 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/createrecipe',
-    name: 'createrecipe',
-    // component: () => import('../views/CreateRecipeView.vue')
-    component: CreateRecipeView
+    path: '/assign_recipe_class',
+    name: 'AssignRecipeClass',
+    component: AssignRecipeClassView
   }
 ]
 

@@ -1,29 +1,12 @@
 [
-  {
-    "id": 1,
-    "name": "Random meal",
-    "desc": "Good meal",
-    "instances": [
-        {
-            "id": 1,
-            "name": "Random meal",
-            "desc": "Good meal",
-            "rating": 7,
-            "pinned": false,
-            "timestamp": "2023-07-04T13:33:03.969Z",
-            "ingredients":[
-                {
-                    "name": "salt",
-                    "type": "g",
-                    "value": 1
-                },
-                {
-                    "name": "egg",
-                    "type": "count",
-                    "value": 2
-                }
-            ]
-        }
-    ]
-  }
+    {
+        "class_name": "1",
+        "class_desc": "1",
+        "id": "b6fe966b-bcdf-405f-876d-671b6a276490"
+    },
+    {
+        "class_name": "2",
+        "class_desc": "2",
+        "id": "99cb8bdb-b949-4be2-9c9a-6528a48fbe62"
+    }
 ]

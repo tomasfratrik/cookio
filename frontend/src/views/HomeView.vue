@@ -1,6 +1,6 @@
 <template>
   <div class="homeview">
-    <router-link to="/createrecipe" custom v-slot="{ navigate }">
+      <router-link :to="{ name: 'AssignRecipeClass' }" custom v-slot="{ navigate }">
       <button @click="navigate" >Add Instance</button>
     </router-link>
   </div> 
@@ -41,6 +41,7 @@ h1 {
   margin-bottom: 20px;
 }
 
+/*
 button {
   text-decoration: none;
   background-color: var(--primary-color);
@@ -51,5 +52,6 @@ button {
   font-size: 20px;
   cursor: pointer;
 }
+*/
 
 </style>
