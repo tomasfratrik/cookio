@@ -32,3 +32,13 @@ def get_class(data: dict, _id: str):
         if recipe_class['id'] == _id:
             return recipe_class
     return None
+
+def remove_instance(_id: str):
+    db = load_json_file('db.json')
+    for recipe_class in db:
+        for instance in recipe_class['instances']:
+            if instance['id'] == _id:
+                recipe_class['instances'].remove(instance)
+                write_json_file('db.json', db)
+                return recipe_class['instances']
+    return None

@@ -10,7 +10,7 @@
                 <button>Detail</button>
             </router-link>
 
-            <!-- <button @click="deleteInstance(instance)">Delete</button> -->
+            <button @click="_deleteInstance(instance)">Delete</button>
         </div>
     </div>
 
@@ -19,11 +19,26 @@
 
 <script>
 import getInstances from '@/composables/getInstances'
+import deleteInstance from '@/composables/deleteInstance'
+import axios from 'axios'
 export default {
     data() {
         return {
             classInstances: []
         }
+    },
+    methods: {
+        _deleteInstance(instance) {
+            deleteInstance(instance.id)
+                .then(() => {
+                    const id = this.$route.params.id
+                    getInstances(id)
+                        .then((data) => {
+                            this.classInstances = data
+                        })
+                })
+        }
+
     },
     mounted() {
         const id = this.$route.params.id

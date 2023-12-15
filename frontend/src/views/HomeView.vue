@@ -16,7 +16,7 @@
               <p>{{ recipe.class_desc }}</p>
               <button @click="classInstances(recipe)">Instances</button>
               <button>Detail</button>
-              <button>Delete</button>
+              <button @click="_deleteClass(recipe)">Delete</button>
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@
 <script>
 import axios from 'axios'
 import getRecipes from '@/composables/getRecipes'
-import getInstances from '@/composables/getInstances'
+import deleteRecipeClass from '@/composables/deleteRecipeClass'
 export default {
   data() {
     return {
@@ -42,6 +42,15 @@ export default {
   methods: {
     classInstances(recipe) {
       this.$router.push({ name: 'ClassInstances', params: { id: recipe.id } })
+    },
+    _deleteClass(recipe) {
+      deleteRecipeClass(recipe.id)
+        .then(() => {
+          getRecipes()
+            .then((data) => {
+              this.recipes = data
+            })
+        })
     }
   },
   mounted() {

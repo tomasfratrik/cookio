@@ -15,15 +15,18 @@ CORS(app)
 def ping():
     return jsonify('pong!')
 
-@app.route('/instance/<_id>', methods=['GET', 'POST'])
+@app.route('/instance/<_id>', methods=['DELETE', 'GET', 'POST'])
 def instance(_id):
+    db = utils.load_json_file('db.json')
     if request.method == 'GET':
-        db = utils.load_json_file('db.json')
         instance = utils.get_instance(db, _id)
         if instance is None:
             return jsonify('error')
 
         return jsonify(instance) 
+    elif request.method == 'DELETE':
+        instances = utils.remove_instance(_id)
+        return jsonify(instances)
 
 @app.route('/instance/<_id>/ingredients', methods=['DELETE', 'GET', 'POST'])
 def ingrediet(_id):
@@ -45,14 +48,6 @@ def ingrediet(_id):
         utils.write_json_file('db.json', db)
         return jsonify(instance['ingredients'])
 
-@app.route('/recipe_classes/<_id>/instances', methods=['DELETE', 'GET','POST'])
-def recipe_classes_instances(_id):
-    db = utils.load_json_file('db.json')
-    if request.method == 'GET':
-        recipe_class = utils.get_class(db, _id)
-        if recipe_class is None:
-            return jsonify('error')
-        return jsonify(recipe_class['instances'])
 
 
 @app.route('/recipe_classes', methods=['GET','POST'])
@@ -89,6 +84,27 @@ def recipe_classes():
 
     data = utils.load_json_file('db.json')
     return jsonify(data)
+
+@app.route('/recipe_classes/<_id>/instances', methods=['DELETE', 'GET','POST'])
+def recipe_classes_instances(_id):
+    db = utils.load_json_file('db.json')
+    if request.method == 'GET':
+        recipe_class = utils.get_class(db, _id)
+        if recipe_class is None:
+            return jsonify('error')
+        return jsonify(recipe_class['instances'])
+
+@app.route('/recipes/<_id>/', methods=['DELETE', 'GET','POST'])
+def delete_recipe_class(_id):
+    db = utils.load_json_file('db.json')
+    if request.method == 'DELETE':
+        recipe_class = utils.get_class(db, _id)
+        if recipe_class is None:
+            print('error')
+            return jsonify('error')
+        db.remove(recipe_class)
+        utils.write_json_file('db.json', db)
+        return jsonify(db)
 
 @app.route('/recipes', methods=['GET'])
 def recipes():

@@ -5,51 +5,21 @@
         "id": "897dcfe8-cb74-42ce-8e93-452bbdb0a975",
         "instances": [
             {
-                "id": "e873fbf3-f25e-4d9e-aaa5-b0d39c293015",
-                "timestamp": "2023-12-15 22:31:14",
-                "name": "2023-12-15 22:31:14",
+                "id": "30d67355-b88a-4c6b-b7c0-a7d2c88759bb",
+                "timestamp": "2023-12-15 23:49:21",
+                "name": "2023-12-15 23:49:21",
                 "desc": "",
                 "rating": 0,
                 "pinned": false,
                 "ingredients": [
                     {
-                        "name": "Sugar",
-                        "unit": "Gram",
-                        "quantity": 3
+                        "name": "sugar",
+                        "unit": "Miligram",
+                        "quantity": 5
                     },
                     {
                         "name": "Milk",
                         "unit": "Liter",
-                        "quantity": 1
-                    }
-                ]
-            },
-            {
-                "id": "7456cf34-304d-492b-b08d-9adc4a702afc",
-                "timestamp": "2023-12-15 22:32:07",
-                "name": "2023-12-15 22:32:07",
-                "desc": "",
-                "rating": 0,
-                "pinned": false,
-                "ingredients": [
-                    {
-                        "name": "skorica",
-                        "unit": "Gram",
-                        "quantity": 3
-                    }
-                ]
-            },
-            {
-                "id": "d06c5605-2e07-43b0-a088-f24d4e77e721",
-                "timestamp": "2023-12-15 23:10:05",
-                "name": "2023-12-15 23:10:05",
-                "desc": "",
-                "rating": 0,
-                "pinned": false,
-                "ingredients": [
-                    {
-                        "name": "Sugar",
-                        "unit": "Gram",
                         "quantity": 3
                     }
                 ]
@@ -60,21 +30,41 @@
         "class_name": "Recept2",
         "class_desc": "dsc2",
         "id": "4298936b-ec49-4bf8-83da-f411b6bb8985",
+        "instances": []
+    },
+    {
+        "class_name": "New Class",
+        "class_desc": "Test",
+        "id": "b69e4923-e11f-4a2b-80c2-ff0d2beca8e2",
         "instances": [
             {
-                "id": "fd6cab96-b3e6-44cc-92ce-50afab29f4de",
-                "timestamp": "2023-12-15 22:31:44",
-                "name": "2023-12-15 22:31:44",
+                "id": "68032bd4-feea-49e0-bcc6-7b9d727002c5",
+                "timestamp": "2023-12-15 23:50:45",
+                "name": "2023-12-15 23:50:45",
                 "desc": "",
                 "rating": 0,
                 "pinned": false,
                 "ingredients": [
                     {
-                        "name": "Milk2",
-                        "unit": "Liter",
-                        "quantity": 4
+                        "name": "Detlete this",
+                        "unit": "Gram",
+                        "quantity": 234
+                    },
+                    {
+                        "name": "sadf",
+                        "unit": "Miligram",
+                        "quantity": 2
                     }
                 ]
+            },
+            {
+                "id": "3b6bf298-aeee-4d8e-9311-a47b71dfed59",
+                "timestamp": "2023-12-15 23:51:23",
+                "name": "2023-12-15 23:51:23",
+                "desc": "",
+                "rating": 0,
+                "pinned": false,
+                "ingredients": []
             }
         ]
     }
