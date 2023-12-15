@@ -1,23 +1,66 @@
 <template>
   <div class="homeview">
+
+    <div class="header">
       <router-link :to="{ name: 'AssignRecipeClass' }" custom v-slot="{ navigate }">
       <button @click="navigate" >Add Instance</button>
-    </router-link>
+      </router-link>
+      <!-- search query -->
+    </div>
+
+    <div class="row">
+      <div class="left">
+        <div class="box">
+          <div class="recipe" v-for="recipe in recipes" :key="recipe.id">
+              <h2>{{ recipe.class_name }}</h2>
+              <p>{{ recipe.class_desc }}</p>
+              <button @click="classInstances(recipe)">Instances</button>
+              <button>Detail</button>
+              <button>Delete</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="right">
+        <!-- pinned instances -->
+      </div>
+    </div>
+
   </div> 
 </template>
 
 <script>
 import axios from 'axios'
+import getRecipes from '@/composables/getRecipes'
+import getInstances from '@/composables/getInstances'
 export default {
   data() {
     return {
       recipes: []
     }
   },
+  methods: {
+    classInstances(recipe) {
+      this.$router.push({ name: 'ClassInstances', params: { id: recipe.id } })
+    }
+  },
+  mounted() {
+    getRecipes()
+      .then((data) => {
+          this.recipes = data
+      })
+  }
 }
 </script>
 
 <style>
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+
 .recipe {
   border: 1px solid black;
   border-radius: 5px;

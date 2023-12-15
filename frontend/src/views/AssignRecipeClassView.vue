@@ -12,8 +12,11 @@
             <form @submit.prevent="handleSubmit">
                 <label>Class recipe name:</label>
                 <input type="text" v-model="className" required>
+                <div v-if="classNameError" class="error-one-liner">
+                    Class name must be at least 3 characters long
+                </div>
                 <label>Class description:</label>
-                <textarea v-model="classDesc" required></textarea>
+                <textarea v-model="classDesc" ></textarea>
                 <button class="btn-create">Create</button>
             </form>
         </div>
@@ -29,11 +32,21 @@ export default {
         return {
             className: '',
             classDesc: '',
-            recipes: []
+            recipes: [],
+            classNameError: false,
+            classDescError: false,
         }
     },
     methods: {
         handleSubmit() {
+            if (this.className.length < 3) {
+                this.classNameError = true
+                return
+            } else {
+                this.classNameError = false
+            }
+
+
             const recipeClass = {
                 class_name: this.className,
                 class_desc: this.classDesc,
@@ -41,7 +54,11 @@ export default {
             const url = 'http://localhost:5000/recipe_classes'
             axios.post(url, recipeClass)
                 .then(response => {
+                    const insntance = response.data
+                    const intanceId = insntance.id
+                    console.log(intanceId)
                     this.updateRecipes()
+                    this.$router.push({ name: 'InstanceDetail', params: { id: intanceId } })
                 })
                 .catch(error => {
                     console.log(error)

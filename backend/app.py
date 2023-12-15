@@ -15,15 +15,77 @@ CORS(app)
 def ping():
     return jsonify('pong!')
 
+@app.route('/instance/<_id>', methods=['GET', 'POST'])
+def instance(_id):
+    if request.method == 'GET':
+        db = utils.load_json_file('db.json')
+        instance = utils.get_instance(db, _id)
+        if instance is None:
+            return jsonify('error')
+
+        return jsonify(instance) 
+
+@app.route('/instance/<_id>/ingredients', methods=['DELETE', 'GET', 'POST'])
+def ingrediet(_id):
+    db = utils.load_json_file('db.json')
+    if request.method == 'POST':
+        ingredient = request.get_json()
+        instance = utils.get_instance(db, _id)
+        if instance is None:
+            return jsonify('error')
+        instance['ingredients'].append(ingredient)
+        utils.write_json_file('db.json', db)
+        return jsonify(instance['ingredients'])
+    elif request.method == 'DELETE':
+        ingredient = request.get_json()
+        instance = utils.get_instance(db, _id)
+        if instance is None:
+            return jsonify('error')
+        instance['ingredients'].remove(ingredient)
+        utils.write_json_file('db.json', db)
+        return jsonify(instance['ingredients'])
+
+@app.route('/recipe_classes/<_id>/instances', methods=['DELETE', 'GET','POST'])
+def recipe_classes_instances(_id):
+    db = utils.load_json_file('db.json')
+    if request.method == 'GET':
+        recipe_class = utils.get_class(db, _id)
+        if recipe_class is None:
+            return jsonify('error')
+        return jsonify(recipe_class['instances'])
+
+
 @app.route('/recipe_classes', methods=['GET','POST'])
 def recipe_classes():
     if request.method == 'POST':
-        data = request.get_json()
-        data['id'] = str(uuid.uuid4())
         existing_data = utils.load_json_file('db.json')
-        existing_data.append(data)
-        utils.write_json_file('db.json', existing_data)
-        return jsonify("ok")
+        data = request.get_json()
+        recipe_class_name = data['class_name']
+        exists = utils.recipe_exists(existing_data, recipe_class_name)
+
+        instance = {}
+        instance['id'] = str(uuid.uuid4())
+        instance['timestamp'] = utils.get_timestamp()
+        instance['name'] = instance['timestamp'] 
+        instance['desc'] = ""
+        instance['rating'] = 0
+        instance['pinned'] = False
+        instance['ingredients'] = []
+
+        if exists:
+            for recipe_class in existing_data:
+                if recipe_class['class_name'] == recipe_class_name:
+                    recipe_class['instances'].append(instance)
+                    utils.write_json_file('db.json', existing_data)
+                    return jsonify(instance)
+        else:
+            data['id'] = str(uuid.uuid4())
+            instances = []
+            instances.append(instance)
+            data['instances'] = instances
+            existing_data.append(data)
+            utils.write_json_file('db.json', existing_data)
+            return jsonify(instance)
 
     data = utils.load_json_file('db.json')
     return jsonify(data)
