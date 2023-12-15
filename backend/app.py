@@ -23,10 +23,10 @@ def recipe_classes():
         existing_data = utils.load_json_file('db.json')
         existing_data.append(data)
         utils.write_json_file('db.json', existing_data)
+        return jsonify("ok")
 
-    elif request.method == 'GET':
-        data = utils.load_json_file('db.json')
-        return jsonify(data)
+    data = utils.load_json_file('db.json')
+    return jsonify(data)
 
 @app.route('/recipes', methods=['GET'])
 def recipes():
