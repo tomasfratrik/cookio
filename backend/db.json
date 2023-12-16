@@ -5,15 +5,37 @@
         "id": "78ff97b6-0b84-4c22-bc47-29b2fcee61e4",
         "instances": [
             {
-                "id": "c6feffb0-f427-4f84-9ef1-25b2b4cb5150",
-                "timestamp": "2023-12-16 16:45:05",
-                "name": "2023-12-16 16:45:05",
+                "id": "43b47d3f-c4c5-4fd8-ae05-d6d2b77d55dc",
+                "timestamp": "2023-12-16 19:04:13",
+                "name": "test",
                 "desc": "",
-                "rating": 0,
-                "pinned": false,
+                "rating": 5,
+                "pinned": true,
                 "ingredients": []
             }
         ],
         "desc": "ahoj"
+    },
+    {
+        "class_name": "xdd",
+        "class_desc": "ddd",
+        "id": "6f5feec0-71e5-4864-a11a-742b3fff8b5b",
+        "instances": [
+            {
+                "id": "24520442-04c4-49bb-a4dd-a5999514bb91",
+                "timestamp": "2023-12-16 19:00:16",
+                "name": "2023-12-16 19:00:16",
+                "desc": "",
+                "rating": 0,
+                "pinned": false,
+                "ingredients": [
+                    {
+                        "name": "sug",
+                        "unit": "Gram",
+                        "quantity": 314
+                    }
+                ]
+            }
+        ]
     }
 ]

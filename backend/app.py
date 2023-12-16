@@ -15,7 +15,7 @@ CORS(app)
 def ping():
     return jsonify('pong!')
 
-@app.route('/instance/<_id>', methods=['DELETE', 'GET', 'POST'])
+@app.route('/instance/<_id>', methods=['DELETE', 'GET', 'POST', 'PUT'])
 def instance(_id):
     db = utils.load_json_file('db.json')
     if request.method == 'GET':
@@ -27,6 +27,17 @@ def instance(_id):
     elif request.method == 'DELETE':
         instances = utils.remove_instance(_id)
         return jsonify(instances)
+    elif request.method == 'PUT':
+        data = request.get_json()
+        instance = utils.get_instance(db, _id)
+        if instance is None:
+            return jsonify('error')
+        instance['name'] = data['name']
+        instance['desc'] = data['desc']
+        instance['rating'] = data['rating']
+        instance['pinned'] = data['pinned']
+        utils.write_json_file('db.json', db)
+        return jsonify(instance)
 
 @app.route('/instance/<_id>/ingredients', methods=['DELETE', 'GET', 'POST'])
 def ingrediet(_id):
@@ -63,7 +74,7 @@ def recipe_classes():
         instance['timestamp'] = utils.get_timestamp()
         instance['name'] = instance['timestamp'] 
         instance['desc'] = ""
-        instance['rating'] = 0
+        instance['rating'] = -1
         instance['pinned'] = False
         instance['ingredients'] = []
 
