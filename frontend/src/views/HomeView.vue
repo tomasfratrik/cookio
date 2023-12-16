@@ -1,6 +1,6 @@
 <template>
   <div class="homeview">
-
+    <Alert ref="alertBox" theme="success"></Alert>
     <div class="header">
       <router-link :to="{ name: 'AssignRecipeClass' }" custom v-slot="{ navigate }">
       <button @click="navigate" >Add Instance</button>
@@ -33,7 +33,11 @@
 import axios from 'axios'
 import getRecipes from '@/composables/getRecipes'
 import deleteRecipeClass from '@/composables/deleteRecipeClass'
+import Alert from '@/components/Alert.vue'
 export default {
+  components: {
+    Alert
+  },
   data() {
     return {
       recipes: []
@@ -43,6 +47,11 @@ export default {
     classInstances(recipe) {
       this.$router.push({ name: 'ClassInstances', params: { id: recipe.id } })
     },
+
+    alert(type, msg) {
+      this.$refs.alertBox.showAlert(type, msg);
+    },
+
     _deleteClass(recipe) {
       deleteRecipeClass(recipe.id)
         .then(() => {
@@ -51,8 +60,12 @@ export default {
             .then((data) => {
               this.recipes = data
             })
+          this.alert('success',"Class deleted successfully")
+          // this.alert('error',"Class deleted successfully")
+          // this.alert('warn',"Class deleted successfully")
         })
-    }
+    },
+
   },
   mounted() {
     getRecipes()
