@@ -74,6 +74,7 @@ export default {
         return {
             recipes: [],
             instance: {},
+            pinned_instances: [],
             ingredients: [],
             toggleModal: false,
             ingredientName: '',

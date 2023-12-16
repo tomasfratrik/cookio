@@ -59,6 +59,17 @@ def ingrediet(_id):
         utils.write_json_file('db.json', db)
         return jsonify(instance['ingredients'])
 
+@app.route('/instance/pinned', methods=['GET','POST', 'PUT'])
+def instance_pinned():
+    db = utils.load_json_file('db.json')
+    if request.method == 'GET':
+        # get all pinned instances
+        pinned_instances = []
+        for recipe_class in db:
+            for instance in recipe_class['instances']:
+                if instance['pinned']:
+                    pinned_instances.append(instance)
+        return jsonify(pinned_instances)
 
 
 @app.route('/recipe_classes', methods=['GET','POST'])
