@@ -10,14 +10,21 @@
         </div>
         <div class="right">
             <form @submit.prevent="handleSubmit">
-                <label>Class recipe name:</label>
-                <input type="text" v-model="className" required>
+                <div class="Class_name">
+                    <label>Class recipe name:</label>
+                    <br>
+                    <input type="text" v-model="className" required>
+                </div>
                 <div v-if="classNameError" class="error-one-liner">
                     Class name must be at least 3 characters long
                 </div>
-                <label>Class description:</label>
-                <textarea v-model="classDesc" ></textarea>
-                <button class="btn-create">Create</button>
+                <div class="Class_desc">
+                    <label>Class description:</label>
+                    <br>
+                    <textarea v-model="classDesc" ></textarea>
+                    <br>
+                    <button class="btn-create">Create</button>
+                </div>
             </form>
         </div>
     </div>
@@ -110,6 +117,11 @@ export default {
     border-radius: 5px;
     border: 1px solid var(--primary-color);
     transition: all 0.2s ease-in-out;
+    width: 100px;
+    height: 50px;
+    font-weight: bold;
+    font-family: sans-serif;
+
 }
 
 .btn-create:hover {
@@ -127,7 +139,44 @@ export default {
     width: 300px;
     border-radius: 5px;
     padding: 10px;
-    height: 300px;
+    height: 450px;
     overflow: scroll;
+}
+.right{
+    width: 50%;
+}
+.Class_name{ 
+    text-align: center;
+}
+.Class_desc{ 
+    text-align: center;
+}
+label{
+    font-size: 25px;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-family: sans-serif;
+}
+textarea {
+    font-size: 20px;
+    padding: 5px;
+    width: 300px; /* Šířka inputu a textarea */
+    height: 150px; /* Šířka inputu a textarea */
+    margin-bottom: 10px;
+    }   
+input{
+    font-size: 20px;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+h2{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+p{
+    font-size: 15px;
+    font-weight: bold;
+    font-family: sans-serif;
 }
 </style>
