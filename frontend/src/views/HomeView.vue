@@ -46,6 +46,7 @@ export default {
     _deleteClass(recipe) {
       deleteRecipeClass(recipe.id)
         .then(() => {
+          console.log('deleted class')
           getRecipes()
             .then((data) => {
               this.recipes = data

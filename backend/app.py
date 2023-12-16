@@ -94,7 +94,7 @@ def recipe_classes_instances(_id):
             return jsonify('error')
         return jsonify(recipe_class['instances'])
 
-@app.route('/recipes/<_id>/', methods=['DELETE', 'GET','POST'])
+@app.route('/recipes/<_id>', methods=['DELETE', 'GET','POST'])
 def delete_recipe_class(_id):
     db = utils.load_json_file('db.json')
     if request.method == 'DELETE':

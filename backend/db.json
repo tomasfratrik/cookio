@@ -23,48 +23,21 @@
                         "quantity": 3
                     }
                 ]
-            }
-        ]
-    },
-    {
-        "class_name": "Recept2",
-        "class_desc": "dsc2",
-        "id": "4298936b-ec49-4bf8-83da-f411b6bb8985",
-        "instances": []
-    },
-    {
-        "class_name": "New Class",
-        "class_desc": "Test",
-        "id": "b69e4923-e11f-4a2b-80c2-ff0d2beca8e2",
-        "instances": [
+            },
             {
-                "id": "68032bd4-feea-49e0-bcc6-7b9d727002c5",
-                "timestamp": "2023-12-15 23:50:45",
-                "name": "2023-12-15 23:50:45",
+                "id": "0704b12a-c5ae-4867-a4dc-7da383bb3a4f",
+                "timestamp": "2023-12-16 14:46:38",
+                "name": "2023-12-16 14:46:38",
                 "desc": "",
                 "rating": 0,
                 "pinned": false,
                 "ingredients": [
                     {
-                        "name": "Detlete this",
-                        "unit": "Gram",
-                        "quantity": 234
-                    },
-                    {
-                        "name": "sadf",
-                        "unit": "Miligram",
-                        "quantity": 2
+                        "name": "sugar",
+                        "unit": "Liter",
+                        "quantity": 5
                     }
                 ]
-            },
-            {
-                "id": "3b6bf298-aeee-4d8e-9311-a47b71dfed59",
-                "timestamp": "2023-12-15 23:51:23",
-                "name": "2023-12-15 23:51:23",
-                "desc": "",
-                "rating": 0,
-                "pinned": false,
-                "ingredients": []
             }
         ]
     }
