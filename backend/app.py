@@ -94,6 +94,15 @@ def recipe_classes_instances(_id):
             return jsonify('error')
         return jsonify(recipe_class['instances'])
 
+@app.route('/recipe_classes/<_id>/', methods=['DELETE', 'GET','POST'])
+def recipe_class_detail(_id):
+    db = utils.load_json_file('db.json')
+    if request.method == 'GET':
+        recipe_class = utils.get_class(db, _id)
+        if recipe_class is None:
+            return jsonify('error')
+        return jsonify(recipe_class)
+
 @app.route('/recipes/<_id>', methods=['DELETE', 'GET','POST'])
 def delete_recipe_class(_id):
     db = utils.load_json_file('db.json')
@@ -105,6 +114,11 @@ def delete_recipe_class(_id):
         db.remove(recipe_class)
         utils.write_json_file('db.json', db)
         return jsonify(db)
+    elif request.method == 'GET':
+        recipe_class = utils.get_class(db, _id)
+        if recipe_class is None:
+            return jsonify('error')
+        return jsonify(recipe_class)
 
 @app.route('/recipes', methods=['GET'])
 def recipes():

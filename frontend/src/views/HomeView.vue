@@ -15,7 +15,7 @@
               <h2>{{ recipe.class_name }}</h2>
               <p>{{ recipe.class_desc }}</p>
               <button @click="classInstances(recipe)">Instances</button>
-              <button>Detail</button>
+              <button @click="classDetail(recipe)">Detail</button>
               <button @click="_deleteClass(recipe)">Delete</button>
           </div>
         </div>
@@ -46,6 +46,9 @@ export default {
   methods: {
     classInstances(recipe) {
       this.$router.push({ name: 'ClassInstances', params: { id: recipe.id } })
+    },
+    classDetail(recipe) {
+      this.$router.push({ name: 'ClassDetail', params: { id: recipe.id } })
     },
 
     alert(type, msg) {

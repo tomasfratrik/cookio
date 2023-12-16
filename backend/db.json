@@ -1,1 +1,18 @@
-[]
+[
+    {
+        "class_name": "testxdd",
+        "class_desc": "ahoj",
+        "id": "78ff97b6-0b84-4c22-bc47-29b2fcee61e4",
+        "instances": [
+            {
+                "id": "c6feffb0-f427-4f84-9ef1-25b2b4cb5150",
+                "timestamp": "2023-12-16 16:45:05",
+                "name": "2023-12-16 16:45:05",
+                "desc": "",
+                "rating": 0,
+                "pinned": false,
+                "ingredients": []
+            }
+        ]
+    }
+]

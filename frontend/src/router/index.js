@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import AssignRecipeClassView from '@/views/AssignRecipeClassView.vue'
 import InstanceDetailView from '@/views/InstanceDetailView.vue'
 import ClassInstancesView from '@/views/ClassInstancesView.vue'
+import ClassDetailView from '@/views/ClassDetailView.vue'
 
 
 const routes = [
@@ -26,6 +27,11 @@ const routes = [
     path: '/recipe_class/:id/instances',
     name: 'ClassInstances',
     component: ClassInstancesView
+  },
+  {
+    path: '/recipe_class/:id',
+    name: 'ClassDetail',
+    component: ClassDetailView
   }
 ]
 
