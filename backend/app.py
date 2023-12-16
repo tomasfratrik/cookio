@@ -94,13 +94,22 @@ def recipe_classes_instances(_id):
             return jsonify('error')
         return jsonify(recipe_class['instances'])
 
-@app.route('/recipe_classes/<_id>/', methods=['DELETE', 'GET','POST'])
+@app.route('/recipe_classes/<_id>', methods=['DELETE', 'GET','POST', 'PUT'])
 def recipe_class_detail(_id):
     db = utils.load_json_file('db.json')
     if request.method == 'GET':
         recipe_class = utils.get_class(db, _id)
         if recipe_class is None:
             return jsonify('error')
+        return jsonify(recipe_class)
+    elif request.method == 'PUT':
+        data = request.get_json()
+        recipe_class = utils.get_class(db, _id)
+        if recipe_class is None:
+            return jsonify('error')
+        recipe_class['class_name'] = data['class_name']
+        recipe_class['desc'] = data['class_desc']
+        utils.write_json_file('db.json', db)
         return jsonify(recipe_class)
 
 @app.route('/recipes/<_id>', methods=['DELETE', 'GET','POST'])

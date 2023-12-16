@@ -1,6 +1,6 @@
 [
     {
-        "class_name": "testxdd",
+        "class_name": "testtt",
         "class_desc": "ahoj",
         "id": "78ff97b6-0b84-4c22-bc47-29b2fcee61e4",
         "instances": [
@@ -13,6 +13,7 @@
                 "pinned": false,
                 "ingredients": []
             }
-        ]
+        ],
+        "desc": "ahoj"
     }
 ]
