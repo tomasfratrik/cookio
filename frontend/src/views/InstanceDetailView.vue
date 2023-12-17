@@ -1,6 +1,6 @@
 <template>
-    <Alert ref="alertDetail" theme="success"></Alert>
     <div class="InstanceDetailView">       
+        <Alert ref="alertDetail" theme="success"></Alert>
         <div v-if="toggleModal">
             <Modal @close="toggleModal_">
                 <Alert ref="alertModal" theme="success"></Alert>
@@ -8,7 +8,7 @@
                     <label style="margin-right: 10px;">Select ingredient</label>           
                     <input v-model="ingredientName" placeholder="Search ..." @click="activate_searching" class="search-input"/>
                     <ul v-if="searching_allowed" class="result-list">
-                        <li v-for="item in filteredList" @click="set_searching(item)" class="result-list li">
+                        <li v-for="item in filteredList" :key="item" @click="set_searching(item)" class="result-list li">
                             {{ item }}
                         </li>
                     </ul>
@@ -339,9 +339,9 @@ li{
   appearance: textfield;
 }
 
-input[type=number] {
+/* input[type=number] {
   -moz-appearance: textfield;
-}
+} */
 
 .select_unit {
     display: flex;
