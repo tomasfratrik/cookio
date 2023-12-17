@@ -51,6 +51,56 @@
             
         </div>
 
+        <div v-if="toggleModal_Up">
+            <Modal @close="toggleModal_Update">
+                <Alert ref="alertModal" theme="success"></Alert>
+                <form @submit.prevent="updateIngredient">
+                    <label style="margin-right: 10px;">Select ingredient</label>           
+                    <input v-model="ingredientName" placeholder="Search ..." @click="activate_searching" class="search-input"/>
+                    <ul v-if="searching_allowed" class="result-list">
+                        <li v-for="item in filteredList" :key="item" @click="set_searching(item)" class="result-list li">
+                            {{ item }}
+                        </li>
+                    </ul>
+                        
+                    <div class="select_unit" >
+                    <label>Select unit</label>
+                    <select v-model="unit" required>
+                        <option>Grams</option>
+                        <option>Kilograms</option>
+                        <option>Handfuls</option>
+                        <option>Liters</option>
+                        <option>Mililiters</option>
+                        <option>Centiliters</option>
+                        <option>Cups</option>
+                        <option>Ounces</option>
+                        <option>Teaspoons</option>
+                        <option>Tablespoons</option>
+                        <option>Pounds</option>
+                    </select>
+                    </div>
+                    <label>Select quantity</label>
+                    <input type="range" v-model="quantity" :min="range_low" :max="range_high" step="1">
+                    <div class="slider_info" >
+                        <span>
+                            <input class="range" type="number" v-model="range_low" required >
+                        </span>
+                        <span>
+                            <input class="num_show" type="number" v-model="quantity" required placeholder="Value">
+                        </span>
+                        <span>
+                            <input class="range" type="number" v-model="range_high" required >
+                        </span>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 70%;">
+                        <button class="btn-create">Save</button>
+                        <button @click="toggleModal_Update" class="btn-create">Close</button>
+                    </div>
+                </form>
+            </Modal>
+            
+        </div>
+
         <label>Edit </label>
         <label class="switch">
             <input type="checkbox" v-model="edit">
@@ -90,7 +140,7 @@
                             <span class="ingredient-unit">{{ ingredient.unit }}</span>
                             <div>
                                 <button class="btn-delete" @click="deleteIngredient(ingredient)">Delete</button>
-                                <button class="btn-delete" @click="toggleModal_Update()">Update</button>
+                                <button class="btn-delete" @click="open_modal_update(ingredient)">Update</button>
                             </div>
                         </div> 
                     </li>
@@ -118,9 +168,11 @@ export default {
             instance: {},
             pinned_instances: [],
             ingredients: [],
+            ingredient: {},
             unique_ingredients: [],
             searching_allowed: false,
             toggleModal: false,
+            toggleModal_Up: false,
             ingredientName: '',
             unit: '',
             quantity: '',
@@ -139,8 +191,16 @@ export default {
         },
         toggleModal_() {
             this.toggleModal = !this.toggleModal
-        },toggleModal_Update() {
-            this.toggleModalUp = !this.toggleModalUp
+        },
+        toggleModal_Update() {
+            this.toggleModal_Up = !this.toggleModal_Up
+        },
+        open_modal_update(ingredient) { 
+            this.ingredientName = ingredient.name
+            this.quantity = ingredient.quantity
+            this.unit = ingredient.unit
+
+            this.toggleModal_Up = !this.toggleModal_Up
         },
         addIngredient() {
             
@@ -200,9 +260,16 @@ export default {
             this.unique_ingredients = this.get_unique_ingredients()
             this.searching_allowed = true
         },
-        updateIngredient(ingredient) {
+        updateIngredient() {
+            
+            const ingredient = {
+                name: this.ingredientName,
+                unit: this.unit,
+                quantity: this.quantity
+            }
+
             const url = `http://localhost:5000/instance/${this.instance.id}/ingredients`
-            axios.updateInstance(url, { data: ingredient })
+            axios.put(url, ingredient )
                 .then(response => {
                     this.ingredients = response.data
                 })

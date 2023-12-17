@@ -36,12 +36,19 @@ def instance(_id):
         instance['desc'] = data['desc']
         instance['rating'] = data['rating']
         instance['pinned'] = data['pinned']
+        instance['ingredients'] = data['ingredients']
         utils.write_json_file('db.json', db)
         return jsonify(instance)
 
-@app.route('/instance/<_id>/ingredients', methods=['DELETE', 'GET', 'POST'])
+@app.route('/instance/<_id>/ingredients', methods=['DELETE', 'GET', 'POST', 'PUT'])
 def ingrediet(_id):
     db = utils.load_json_file('db.json')
+    if request.method == 'GET':
+        instance = utils.get_instance(db, _id)
+        if instance is None:
+            return jsonify('error')
+
+        return jsonify(instance['ingredients'])
     if request.method == 'POST':
         ingredient = request.get_json()
         instance = utils.get_instance(db, _id)
@@ -56,6 +63,18 @@ def ingrediet(_id):
         if instance is None:
             return jsonify('error')
         instance['ingredients'].remove(ingredient)
+        utils.write_json_file('db.json', db)
+        return jsonify(instance['ingredients'])
+    elif request.method == 'PUT':
+        ingredient = request.get_json()
+        instance = utils.get_instance(db, _id)
+        if instance is None:
+            return jsonify('error')
+        for ingredient_to_remove in instance['ingredients']:
+            if ingredient['name'] == ingredient_to_remove['name']:
+                index = instance['ingredients'].index(ingredient_to_remove)
+                instance['ingredients'][index] = ingredient
+                break
         utils.write_json_file('db.json', db)
         return jsonify(instance['ingredients'])
 

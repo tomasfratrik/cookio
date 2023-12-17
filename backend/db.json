@@ -20,7 +20,23 @@
                 "desc": "Test instance",
                 "rating": -1,
                 "pinned": true,
-                "ingredients": []
+                "ingredients": [
+                    {
+                        "name": "mleko",
+                        "unit": "Liters",
+                        "quantity": "234"
+                    },
+                    {
+                        "name": "maslo",
+                        "unit": "Kilograms",
+                        "quantity": "85"
+                    },
+                    {
+                        "name": "mlekoasd",
+                        "unit": "Liters",
+                        "quantity": "108"
+                    }
+                ]
             }
         ],
         "desc": "ahoj"
