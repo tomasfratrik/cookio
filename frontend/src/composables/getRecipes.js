@@ -1,3 +1,6 @@
+// Composable function to get recipes from the backend
+//author: xfratr01
+
 import axios from 'axios'
 
 const getRecipes = () => {

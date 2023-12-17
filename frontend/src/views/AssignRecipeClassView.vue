@@ -56,6 +56,7 @@ export default {
         }
     },
     methods: {
+        // after we press submit, assign class
         handleSubmit() {
             if (this.className.length < 3) {
                 this.classNameError = true
@@ -88,12 +89,14 @@ export default {
 
 
         },
+        // fetch all recipes
         updateRecipes() {
             getRecipes()
                 .then((data) => {
                     this.recipes = data
                 })
         },
+        // select recipe
         select(recipe_class) {
             console.log(recipe_class)
             console.log(recipe_class.class_name)
@@ -103,11 +106,13 @@ export default {
 
     },
     mounted() {
+        // fetch all recipes
         getRecipes()
             .then((data) => {
                 this.recipes = data
             })
     },
+    // filter recipes based on search
     computed: {
         filteredRecipes() {
             return this.recipes.filter(item => item.class_name.includes(this.search));

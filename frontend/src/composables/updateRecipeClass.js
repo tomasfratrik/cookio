@@ -1,3 +1,6 @@
+// Composable function to update a recipe class
+//author: xfratr01
+
 import axios from 'axios'
 
 const updateRecipeClass = (recipe) => {

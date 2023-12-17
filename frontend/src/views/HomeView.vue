@@ -17,7 +17,6 @@
         <h2>Recipes </h2>
         <div class="box">
           <div class="recipe" v-for="recipe in filteredRecipes" :key="recipe.id">
-              <!-- <p>{{ recipe.class_name }}</p> -->
               <h2>{{ recipe.class_name }}</h2>
               <button @click="classInstances(recipe)">Meals</button>
               <button @click="classDetail(recipe)">Detail</button>
@@ -30,12 +29,10 @@
         <h2>Pinned meals</h2>
         <div class="box">
           <div class="instance" @click="instanceDetail(instance)" v-for="instance in filteredInstances" :key="instance.id">
-            <!-- <div v-if="username.length<8">Welcome, {{ username }}</div> -->
               <h3 v-if="instance.name.length < 15">{{ instance.name }}</h3>
               <h3 v-else>{{ instance.name.substring(0, 15) }}...</h3>
               <p v-if="instance.rating > 0">Rating: {{ instance.rating }}</p>
               <p v-else>Rating: not rated yet!</p>
-              <!-- <button @click="instanceDetail(instance)">Detail</button> -->
             </div>
         </div>
       </div>
@@ -63,20 +60,24 @@ export default {
     }
   },
   methods: {
+    // go to instances of class
     classInstances(recipe) {
       this.$router.push({ name: 'ClassInstances', params: { id: recipe.id } })
     },
+    // go to detail of class
     classDetail(recipe) {
       this.$router.push({ name: 'ClassDetail', params: { id: recipe.id } })
     },
+    // go to detail of instance
     instanceDetail(instance) {
       this.$router.push({ name: 'InstanceDetail', params: { id: instance.id } })
     },
-
+    // alert function
     alert(type, msg) {
       this.$refs.alertBox.showAlert(type, msg);
     },
 
+    // delete this class
     _deleteClass(recipe) {
       deleteRecipeClass(recipe.id)
         .then(() => {
@@ -86,22 +87,23 @@ export default {
               this.recipes = data
             })
           this.alert('success',"Class deleted successfully")
-          // this.alert('error',"Class deleted successfully")
-          // this.alert('warn',"Class deleted successfully")
         })
     },
 
   },
   computed: {
+    // filter instaces
     filteredInstances() {
       return this.pinned_instances.filter(item => item.name.includes(this.search));
     },
+    // filter recipes
     filteredRecipes() {
       return this.recipes.filter(item => item.class_name.includes(this.search));
     }
 
   },
   mounted() {
+    // fetch recipes and pinned instances
     getRecipes()
       .then((data) => {
           this.recipes = data

@@ -1,3 +1,6 @@
+<!-- ITU project 
+  -- AUTHOR: xfratr01
+-->
 <template>
   <div>
     <nav>
@@ -34,6 +37,7 @@ export default {
     FontAwesomeIcon,
   },
   methods: {
+    // go back and forward in history
     goBack() {
       this.$router.go(-1);
     },

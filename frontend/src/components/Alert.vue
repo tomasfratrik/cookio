@@ -1,3 +1,6 @@
+<!-- ITU project 
+  -- AUTHOR: xfratr01
+-->
 <template>
   <!-- <div v-if="isShowing" :class="{ success: theme === 'success', error: theme === 'error'}" > -->
     <div v-if="isShowing" :class="['alert', isActive ? 'active' : '', theme === 'success' ? 'success' : '', theme === 'error' ? 'error' : '', theme === 'warn' ? 'warn' : '']">

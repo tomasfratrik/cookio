@@ -1,3 +1,6 @@
+<!-- ITU project 
+  -- AUTHOR: xsynek04
+-->
 <template>
     <div class="backdrop" ref="popup" @click.self="closeModal">
         <div class="modal">

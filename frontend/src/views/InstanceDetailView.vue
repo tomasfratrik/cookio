@@ -204,6 +204,7 @@ export default {
         }
     },
     methods: {
+        // handle submit button, update instance
         handleSubmit() {
             updateInstance(this.instance)
                 .then(() => {
@@ -211,14 +212,17 @@ export default {
                     this.edit = false
                 })
         },
+        // toggle modal, to add ingredients
         toggleModal_() {
             this.toggleModal = !this.toggleModal
             this.showEdit = !this.showEdit
         },
+        // toggle modal for update ingredients
         toggleModal_Update() {
             this.toggleModal_Up = !this.toggleModal_Up
             this.showEdit = !this.showEdit
         },
+        // open update modal
         open_modal_update(ingredient) { 
             this.ingredientName = ingredient.name
             this.quantity = ingredient.quantity
@@ -227,6 +231,7 @@ export default {
             this.toggleModal_Up = !this.toggleModal_Up
             this.showEdit = !this.showEdit
         },
+        // add ingredient to instance
         addIngredient() {
             
             for (var i = 0; i < this.ingredients.length; i++){
@@ -255,6 +260,7 @@ export default {
             this.alert_modal('success', "Ingredient successfully added.");
             return true;
         },
+        // delete ingredient from instance
         deleteIngredient(ingredient) {
             const url = `http://localhost:5000/instance/${this.instance.id}/ingredients`
             try{
@@ -268,7 +274,7 @@ export default {
                 this.alert_detail('error', "Ooops, somethinw went wrong.");
             }
         },
-
+        // get unique all unique ingredients
         get_unique_ingredients(){
             const url = `http://127.0.0.1:5000/ingredients`
             axios.get(url)
@@ -285,6 +291,8 @@ export default {
             this.unique_ingredients = this.get_unique_ingredients()
             this.searching_allowed = true
         },
+
+        // update ingredient
         updateIngredient() {
             
             const ingredient = {
@@ -299,6 +307,7 @@ export default {
                     this.ingredients = response.data
                 })
         },
+        // alert function
         alert_modal(type, msg) {
             this.$refs.alertModal.showAlert(type, msg);
         },
@@ -307,6 +316,7 @@ export default {
         },
     },
     mounted() {
+        // fetch instance by id
         getInstance(this.$route.params.id)
             .then((data) => {
                 this.instance = data
@@ -314,6 +324,7 @@ export default {
             })
     },
     computed: {
+        // filter ingredients
         filteredList() {
             if (this.ingredientName !== '')
                 return this.unique_ingredients.filter(item => item.toLowerCase().includes(this.ingredientName.toLowerCase()))

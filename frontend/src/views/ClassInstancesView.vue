@@ -63,9 +63,11 @@ export default {
         }
     },
     methods: {
+        // alert function
         alert(type, msg) {
             this.$refs.alertBox.showAlert(type, msg);
         },
+        // delete this instance
         _deleteInstance(instance) {
             deleteInstance(instance.id)
                 .then(() => {
@@ -81,13 +83,14 @@ export default {
     },
     mounted() {
         const id = this.$route.params.id
+        // fetch instances of class
         getInstances(id)
             .then((data) => {
                 this.classInstances = data
-                // return this.classInstances
             })
     },
     computed: {
+        // sort and filter instances
         filteredInstances() {
             const sorted = [...this.classInstances]; // Create a copy of the original list
             
@@ -115,7 +118,6 @@ export default {
     padding: 10px;
     width: 100%;
     min-height: 50px;
-    /* height: 300px; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -126,7 +128,6 @@ export default {
     white-space: normal;
 }
 .instance .btn-detail, .instance .btn-delete {
-    /* padding: 10px; */
     height: 30px;
     width: 50px;
     border-radius: 1px;

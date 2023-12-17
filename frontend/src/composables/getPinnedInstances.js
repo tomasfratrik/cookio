@@ -1,3 +1,6 @@
+// Composable function to retrieve all pinned instances from the backend
+//author: xfratr01
+
 import axios from 'axios'
 
 const getPinnedInstances = () => {

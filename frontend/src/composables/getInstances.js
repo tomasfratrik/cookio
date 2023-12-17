@@ -1,3 +1,6 @@
+// Composable function to retrieve instances of a recipe class from the backend
+//author: xfratr01
+
 import axios from 'axios'
 
 const getInstances = (id) => {

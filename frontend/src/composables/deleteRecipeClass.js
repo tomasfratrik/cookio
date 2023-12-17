@@ -1,3 +1,5 @@
+// Purpose: composable for deleting a recipe class from the database
+// author: xfratr01
 import axios from 'axios'
 
 const deleteRecipeClass = (id) => {

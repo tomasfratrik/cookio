@@ -50,13 +50,16 @@ export default {
         }
     },
     methods: {
+        // alert function
         alert(type, message) {
             this.$refs.alertBox.showAlert(type, message)
         },
+        // go to instances of class
         classInstances(recipe) {
             this.$router.push({ name: 'ClassInstances', params: { id: recipe.id } })
         },
 
+        // delete this class
         _deleteClass(recipe) {
             deleteRecipeClass(recipe.id)
                 .then(() => {
@@ -65,6 +68,7 @@ export default {
                     this.alert('success', 'Class deleted!')
                 })
         },
+        // update recipe class
         handleSubmit() {
             updateRecipeClass(this.recipe)
                 .then(() => {
@@ -76,7 +80,7 @@ export default {
 
     },
     mounted() {
-        // this.recipe = this.$store.state.recipe
+      // fetch recipe class by id
         getRecipeClass(this.$route.params.id)
             .then((recipe) => {
                 this.recipe = recipe
@@ -127,7 +131,6 @@ export default {
 }
 
 input:checked + .slider {
-  /*background-color: #2196F3; */
   background-color: var(--secondary-color);
 }
 

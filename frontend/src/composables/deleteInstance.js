@@ -1,4 +1,5 @@
-
+// Purpose: axios call to delete an instance from the database.
+// author: xfratr01
 import axios from 'axios'
 
 const deleteInstance = (id) => {

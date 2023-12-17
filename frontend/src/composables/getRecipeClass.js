@@ -1,3 +1,6 @@
+// Purpose: Gets a recipe class from the backend by id.
+//author: xfratr01
+
 import axios from 'axios'
 
 const getRecipeClass = (id) => {

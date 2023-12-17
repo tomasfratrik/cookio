@@ -1,3 +1,6 @@
+// Composable function to update an instance
+//author: xfratr01
+
 import axios from 'axios'
 
 const updateInstance = (instance) => {
