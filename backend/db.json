@@ -1,5 +1,73 @@
 [
     {
+
+        "class_name": "testtt",
+        "class_desc": "ahoj",
+        "id": "78ff97b6-0b84-4c22-bc47-29b2fcee61e4",
+        "instances": [
+            {
+                "id": "72532b46-9cab-47d5-a04c-0830e7556f1d",
+                "timestamp": "2023-12-17 13:28:02",
+                "name": "2023-12-17 13:28:02",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "49517a30-8626-4cbb-9094-b85131021046",
+                "timestamp": "2023-12-17 13:28:26",
+                "name": "xddd",
+                "desc": "Test instance",
+                "rating": -1,
+                "pinned": true,
+                "ingredients": [
+                    {
+                        "name": "mleko",
+                        "unit": "Liters",
+                        "quantity": "234"
+                    },
+                    {
+                        "name": "maslo",
+                        "unit": "Kilograms",
+                        "quantity": "85"
+                    },
+                    {
+                        "name": "mlekoasd",
+                        "unit": "Liters",
+                        "quantity": "108"
+                    }
+                ]
+            }
+        ],
+        "desc": "ahoj"
+    },
+    {
+        "class_name": "asdf",
+        "class_desc": "sdg",
+        "id": "2281099c-9734-4883-a854-b92e6cb5fd2d",
+        "instances": [
+            {
+                "id": "058e1b88-2825-4224-ba4b-5b4f16178b87",
+                "timestamp": "2023-12-16 20:13:42",
+                "name": "2023-12-16 20:13:42",
+                "desc": "",
+                "rating": -1,
+                "pinned": true,
+                "ingredients": []
+            },
+            {
+                "id": "5e20b973-bb4e-4cf2-9b54-645cbcade3c6",
+                "timestamp": "2023-12-16 20:14:13",
+                "name": "2023-12-16 20:14:13",
+                "desc": "",
+                "rating": -1,
+                "pinned": true,
+                "ingredients": []
+            }
+        ]
+    },
+    {
         "class_name": "Dont delete",
         "class_desc": "dntdlt",
         "id": "2818ee07-fb73-44e3-8b29-cfd4e3b8e675",
