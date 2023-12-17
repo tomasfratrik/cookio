@@ -93,6 +93,47 @@
                 "rating": -1,
                 "pinned": false,
                 "ingredients": []
+            },
+            {
+                "id": "b70d7bf6-4055-4735-a309-e6382140c4d1",
+                "timestamp": "2023-12-17 17:56:10",
+                "name": "Dont delete",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            }
+        ]
+    },
+    {
+        "class_name": "Bureger",
+        "class_desc": "brg",
+        "id": "b13ab39b-57db-4209-8cde-5157bc8627c6",
+        "instances": [
+            {
+                "id": "e9a6f31e-5174-4371-90fd-8fa3155e4b18",
+                "timestamp": "2023-12-17 17:26:31",
+                "name": "Bureger",
+                "desc": "",
+                "rating": -1,
+                "pinned": true,
+                "ingredients": []
+            }
+        ]
+    },
+    {
+        "class_name": "lafjljasdlfjasdlfjlasdfjklasfjlsdafjl;asfjldkasjflkasdjfldasjflsdaf",
+        "class_desc": "",
+        "id": "eba20249-02f6-4b3f-a52a-f5b16f2c99e5",
+        "instances": [
+            {
+                "id": "74fdea16-b3f7-46ba-bac1-a3e08d0361ba",
+                "timestamp": "2023-12-17 18:33:29",
+                "name": "lafjljasdlfjasdlfjlasdfjklasfjlsdafjl;asfjldkasjflkasdjfldasjflsdaf",
+                "desc": "",
+                "rating": -1,
+                "pinned": true,
+                "ingredients": []
             }
         ]
     }

@@ -83,7 +83,7 @@ def recipe_classes():
         instance = {}
         instance['id'] = str(uuid.uuid4())
         instance['timestamp'] = utils.get_timestamp()
-        instance['name'] = instance['timestamp'] 
+        instance['name'] = recipe_class_name
         instance['desc'] = ""
         instance['rating'] = -1
         instance['pinned'] = False
