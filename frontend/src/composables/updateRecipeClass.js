@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 const updateRecipeClass = (recipe) => {
   const id = recipe.id
   const url = `http://localhost:5000/recipe_classes/${id}`
