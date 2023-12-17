@@ -4,13 +4,14 @@
     <div class="Instances">
         <div class="instance" v-for="instance in classInstances" :key="instance.id">
             <h2>{{ instance.name }}</h2>
-            <p>{{ instance.desc }}</p>
-            <p> rating - {{ instance.rating }}</p>
-            <router-link :to="{ name: 'InstanceDetail', params: { id: instance.id } }">
-                <button>Detail</button>
-            </router-link>
+            <p> Rating - {{ instance.rating }}</p>
+            <div class="btns">
+                <router-link :to="{ name: 'InstanceDetail', params: { id: instance.id } }">
+                    <button class="btn-detail">Detail</button>
+                </router-link>
 
-            <button @click="_deleteInstance(instance)">Delete</button>
+                <button class="btn-delete" @click="_deleteInstance(instance)">Delete</button>
+            </div>
         </div>
     </div>
 
@@ -51,6 +52,35 @@ export default {
 }
 </script>
 
-<style>
+<style scoped >
+.instance {
+    border: 1px solid black;
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    height: 50px;
+    /* height: 300px; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.instance .btn-detail, .instance .btn-delete {
+    /* padding: 10px; */
+    height: 30px;
+    width: 50px;
+    border-radius: 1px;
+    color:white;
+    cursor: pointer;
+}
+.instance p {
+    /* align right */
+    /* align-self: flex-end; */
+}
 
+.instance .btn-detail {
+    background-color: var(--secondary-color);
+}
+.instance .btn-delete {
+    background-color: rgb(218, 69, 69);
+}
 </style>

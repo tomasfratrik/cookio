@@ -38,6 +38,24 @@
                 </form>
             </Modal>
         </div>
+        <div v-if="toggleModalUp">
+            <Modal @close="toggleModal_">
+                <form @submit.prevent="addIngredient">
+                    <label>Ingredient name</label>
+                    <input type="text" v-model="ingredientName" required>
+                    <label>Select Unit</label>
+                    <select v-model="unit">
+                        <option>Gram</option>
+                        <option>Miligram</option>
+                        <option>Liter</option>
+                        <option>Mililiter</option>
+                    </select>
+                    <label>Quantity</label>
+                    <input type="number" v-model="quantity" required>
+                    <button class="btn-create">Add</button>
+                </form>
+            </Modal>
+        </div>
         <label>Edit </label>
         <label class="switch">
             <input type="checkbox" v-model="edit">
@@ -68,11 +86,18 @@
             <div v-if="ingredients.length === 0">
                 <p>No ingredients</p>
             </div>
-            <div v-else>
+            <div v-els>
                 <ul>
                     <li v-for="ingredient in ingredients" :key="ingredient.name">
-                        {{ ingredient.name }} - {{ ingredient.quantity }} -  {{ ingredient.unit }} 
-                        <button class="btn-delete" @click="deleteIngredient(ingredient)">Delete</button>
+                        <div  class="ingredient-info">
+                            <span class="ingredient-name">{{ ingredient.name }}</span>
+                            <span class="ingredient-quantity">{{ ingredient.quantity }}-</span> 
+                            <span class="ingredient-unit">{{ ingredient.unit }}</span>
+                            <div>
+                                <button class="btn-delete" @click="deleteIngredient(ingredient)">Delete</button>
+                                <button class="btn-delete" @click="toggleModal_Update()">Update</button>
+                            </div>
+                        </div> 
                     </li>
                 </ul>
             </div>
@@ -94,6 +119,7 @@ export default {
         return {
             recipes: [],
             instance: {},
+            pinned_instances: [],
             ingredients: [],
             unique_ingredients: [],
             searching_allowed: false,
@@ -114,6 +140,8 @@ export default {
         },
         toggleModal_() {
             this.toggleModal = !this.toggleModal
+        },toggleModal_Update() {
+            this.toggleModalUp = !this.toggleModalUp
         },
         addIngredient() {
             const ingredient = {
@@ -138,6 +166,7 @@ export default {
                     this.ingredients = response.data
                 })
         },
+
         get_unique_ingredients(){
             const url = `http://127.0.0.1:5000/ingredients`
             axios.get(url)
@@ -154,7 +183,13 @@ export default {
             this.unique_ingredients = this.get_unique_ingredients()
             this.searching_allowed = true
         },
-
+        updateIngredient(ingredient) {
+            const url = `http://localhost:5000/instance/${this.instance.id}/ingredients`
+            axios.updateInstance(url, { data: ingredient })
+                .then(response => {
+                    this.ingredients = response.data
+                })
+        },
     },
     mounted() {
         getInstance(this.$route.params.id)
@@ -173,9 +208,22 @@ export default {
 
 </script>
 
-<style>
-.btn-create {
-    margin: 10px;
+<style scoped>
+.btn-delete {
+    background-color: white;
+    text-decoration: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 1px solid var(--primary-color);
+    transition: all 0.2s ease-in-out;
+    width: 75px;
+    height: 33px;
+    font-weight: bold;
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: -12px;
 }
 
 .btn-new {
@@ -188,6 +236,7 @@ form {
     justify-content: space-evenly;
     align-items: center;
 }
+
 
 .search-input {
   padding: 10px;
@@ -210,5 +259,36 @@ form {
 .result-list li:hover {
   background-color: #f0f0f0;
 }
+
+=======
+.ingredient-info{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.ingredient-name, .ingredient-quantity, .ingredient-unit{
+    font-size: 20px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: black;
+
+}
+
+.ingredient-quantity, .ingredient-unit{ 
+    color: var(--primary-color);
+    text-align: right;
+}
+
+.ingredient-unit{
+    text-align: left;
+}
+
+li{
+    list-style: none;
+}
+
+
 
 </style>
