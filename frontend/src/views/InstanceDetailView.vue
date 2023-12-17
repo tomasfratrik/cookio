@@ -1,3 +1,6 @@
+<!-- ITU project 
+  -- AUTHOR: xsynek04
+-->
 <template>
     <div class="InstanceDetailView">       
         <Alert ref="alertDetail" theme="success"></Alert>

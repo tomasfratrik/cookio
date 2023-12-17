@@ -1,3 +1,6 @@
+<!-- ITU project 
+  -- AUTHOR: xkvasn16
+-->
 <template>
     <div class="ClassDetail">
         <Alert ref="alertBox"></Alert>
@@ -17,7 +20,6 @@
                 <label for="class_name">Class name</label>
                 <input class="name" type="text" id="class_name" v-model="recipe.class_name">
                 <label for="class_desc">Class description</label>
-                <!-- <input type="text" id="class_desc" v-model="recipe.class_desc"> -->
                 <textarea id="class_desc" class="desc" v-model="recipe.class_desc"></textarea>
                 <button class="btn-create" type="submit">Save</button>
             </form>

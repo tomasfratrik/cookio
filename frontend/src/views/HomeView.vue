@@ -1,3 +1,6 @@
+<!-- ITU project 
+  -- AUTHOR: xfratr01
+-->
 <template>
   <div class="home">
     <Alert ref="alertBox" theme="success"></Alert>

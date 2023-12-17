@@ -18,28 +18,28 @@
                 "timestamp": "2023-12-17 13:28:26",
                 "name": "xddd",
                 "desc": "Test instance",
-                "rating": -1,
+                "rating": 5,
                 "pinned": true,
                 "ingredients": [
                     {
                         "name": "mleko",
-                        "unit": "Liters",
-                        "quantity": "234"
+                        "quantity": "234",
+                        "unit": "Liters"
                     },
                     {
                         "name": "maslo",
-                        "unit": "Kilograms",
-                        "quantity": "85"
+                        "quantity": "85",
+                        "unit": "Kilograms"
                     },
                     {
                         "name": "mlekoasd",
-                        "unit": "Liters",
-                        "quantity": "108"
+                        "quantity": "108",
+                        "unit": "Liters"
                     },
                     {
                         "name": "skorica",
-                        "unit": "Grams",
-                        "quantity": 4
+                        "quantity": 4,
+                        "unit": "Grams"
                     }
                 ]
             }
