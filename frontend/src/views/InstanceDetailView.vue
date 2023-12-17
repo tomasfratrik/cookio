@@ -11,7 +11,7 @@
                         </li>
                     </ul>
                         
-
+                    <div class="select_unit" >
                     <label>Select Unit</label>
                     <select v-model="unit">
                         <option>Grams</option>
@@ -26,36 +26,28 @@
                         <option>Tablespoons</option>
                         <option>Pounds</option>
                     </select>
+                    </div>
                     <label>Quantity</label>
-                    <input type="range" v-model="quantity" min="0" max="100000" step="1">
+                    <input type="range" v-model="quantity" :min="range_low" :max="range_high" step="1">
+                    <div class="slider_info" >
                         <span>
-                            <input type="number" v-model="quantity" required placeholder="Choose quantity">
+                            <input class="range" type="number" v-model="range_low" required placeholder="Choose quantity">
                         </span>
-                    <div style="display: flex; align-items: center;">
+                        <span>
+                            <input class="num_show" type="number" v-model="quantity" required placeholder="Choose quantity">
+                        </span>
+                        <span>
+                            <input class="range" type="number" v-model="range_high" required placeholder="Choose quantity">
+                        </span>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 70%;">
                         <button class="btn-create">Add</button>
                         <button @click="toggleModal_" class="btn-create">Close</button>
                     </div>
                 </form>
             </Modal>
         </div>
-        <div v-if="toggleModalUp">
-            <Modal @close="toggleModal_">
-                <form @submit.prevent="addIngredient">
-                    <label>Ingredient name</label>
-                    <input type="text" v-model="ingredientName" required>
-                    <label>Select Unit</label>
-                    <select v-model="unit">
-                        <option>Gram</option>
-                        <option>Miligram</option>
-                        <option>Liter</option>
-                        <option>Mililiter</option>
-                    </select>
-                    <label>Quantity</label>
-                    <input type="number" v-model="quantity" required>
-                    <button class="btn-create">Add</button>
-                </form>
-            </Modal>
-        </div>
+
         <label>Edit </label>
         <label class="switch">
             <input type="checkbox" v-model="edit">
@@ -128,6 +120,8 @@ export default {
             unit: '',
             quantity: '',
             edit:  false,
+            range_low: 0,
+            range_high: 1000,
         }
     },
     methods: {
@@ -237,6 +231,11 @@ form {
     align-items: center;
 }
 
+.btn-create {
+    width: 100px;
+    height: 50px;
+}
+
 
 .search-input {
   padding: 10px;
@@ -288,6 +287,39 @@ li{
     list-style: none;
 }
 
+
+.range {
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+}
+
+.num_show {
+  height: 50px;
+  width: 50px;
+  margin: 25px;
+  text-align: center;
+}
+
+.slider_info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  appearance: textfield;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.select_unit {
+    display: flex;
+    margin: 10px;
+    flex-direction: column;
+    align-items: center;
+}
 
 
 </style>
