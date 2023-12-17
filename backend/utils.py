@@ -42,13 +42,3 @@ def remove_instance(_id: str):
                 write_json_file('db.json', db)
                 return recipe_class['instances']
     return None
-
-def get_unique_ingredients():
-    db = load_json_file('db.json')
-    ingredients = set()
-    for recipe_class in db:
-        for instance in recipe_class['instances']:
-            for ingredient in instance['ingredients']:
-                ingredients.add(ingredient["name"].lower())
-    ingredients = list(ingredients)
-    return ingredients
