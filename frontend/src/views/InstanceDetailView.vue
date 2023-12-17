@@ -105,7 +105,8 @@
             <div class="edit">
                 <h1>Meal detail</h1>
                 <label>Edit </label>
-                <label class="switch">
+
+                <label v-if="showEdit" class="switch">
                     <input type="checkbox" v-model="edit">
                     <span class="round slider"></span>
                 </label>
@@ -196,6 +197,7 @@ export default {
             edit:  false,
             range_low: 0,
             range_high: 1000,
+            showEdit: true,
         }
     },
     methods: {
@@ -208,9 +210,11 @@ export default {
         },
         toggleModal_() {
             this.toggleModal = !this.toggleModal
+            this.showEdit = !this.showEdit
         },
         toggleModal_Update() {
             this.toggleModal_Up = !this.toggleModal_Up
+            this.showEdit = !this.showEdit
         },
         open_modal_update(ingredient) { 
             this.ingredientName = ingredient.name
@@ -218,6 +222,7 @@ export default {
             this.unit = ingredient.unit
 
             this.toggleModal_Up = !this.toggleModal_Up
+            this.showEdit = !this.showEdit
         },
         addIngredient() {
             
