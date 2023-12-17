@@ -101,37 +101,51 @@
             
         </div>
 
-        <label>Edit </label>
-        <label class="switch">
-            <input type="checkbox" v-model="edit">
-            <span class="round slider"></span>
-        </label>
-        <div v-if="edit">
-            <form @submit.prevent="handleSubmit">
-                <label>Name</label>
-                <input type="text" v-model="instance.name">
-                <label>Description</label>
-                <input type="text" v-model="instance.desc">
-                <label>Rating</label>
-                <input type="number" v-model="instance.rating">
-                <label>Pinned</label>
-                <input type="checkbox" v-model="instance.pinned">
-                <button class="btn-create">Save</button>
-            </form>
-        </div>
-        <div v-else>
-            <h1>{{ instance.name }}</h1>
-            <p>{{ instance.desc }}</p>
-            <p v-if="instance.rating >= 0"> Rating: {{ instance.rating }}</p>
-            <p v-else> Rating: not rated yet!</p>
-            <p>Pinned:</p>
-            <input disabled="true" type="checkbox" v-model="instance.pinned">
-            <h2>Ingredients: </h2>
-            <button @click="toggleModal_">Add Ingredients</button>
-            <div v-if="ingredients.length === 0">
-                <p>No ingredients</p>
+        <div class="headr">
+            <div class="edit">
+                <h1>Meal detail</h1>
+                <label>Edit </label>
+                <label class="switch">
+                    <input type="checkbox" v-model="edit">
+                    <span class="round slider"></span>
+                </label>
             </div>
-            <div v-els>
+            <div v-if="edit">
+                <form @submit.prevent="handleSubmit">
+                    <label>Meal name</label>
+                    <input class="instance-name" type="text" v-model="instance.name">
+                    <label>Mead description</label>
+                    <textarea class="instance-desc" v-model="instance.desc"></textarea>
+                    <!-- <input class="instance-desc" type="text" v-model="instance.desc"> -->
+                    <label>Rating</label>
+                    <p>Set to -1, if not rated</p>
+                    <input type="number" v-model="instance.rating" min="-1" max="10">
+                    <label>Pinned</label>
+                    <input type="checkbox" v-model="instance.pinned">
+                    <button class="btn-create">Save</button>
+                </form>
+            </div>
+            <div v-else class="form2">
+                <label>Meal name</label>
+                <h1 class="instance-name">{{ instance.name }}</h1>
+                <label>Meal description</label>
+                <!-- <p class="instance-desc">{{ instance.desc }}</p> -->
+                <textarea class="instance-desc no-border" v-model="instance.desc" disabled></textarea>
+                <label>Rating</label>
+                <p v-if="instance.rating >= 0"> Rating: {{ instance.rating }}</p>
+                <p v-else> Rating: not rated yet!</p>
+                <label>Pinned</label>
+                <p>Pinned:</p>
+                <input disabled="true" type="checkbox" v-model="instance.pinned">
+            </div>
+        </div>
+
+            <div class="ingredients">
+                <h2>Ingredients: </h2>
+                <button @click="toggleModal_" class="btn-add">Add Ingredients</button>
+                <div v-if="ingredients.length === 0">
+                    <p>No ingredients</p>
+                </div>
                 <ul>
                     <li v-for="ingredient in ingredients" :key="ingredient.name">
                         <div  class="ingredient-info">
@@ -146,7 +160,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
 
     </div>
 </template>
@@ -299,6 +312,10 @@ export default {
 </script>
 
 <style scoped>
+.headr{
+    max-width: 500px;
+    margin: 0 auto;
+}
 .btn-delete {
     background-color: white;
     text-decoration: none;
@@ -316,6 +333,11 @@ export default {
     margin-top: -12px;
 }
 
+.ingredients {
+    margin-top: 30px;
+    padding: 30px;
+}
+
 .btn-new {
     margin: 10px;
 }
@@ -325,6 +347,52 @@ form {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
+}
+
+.form2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.headr {
+    text-align: left;
+}
+.edit {
+    text-align: center;
+}
+
+.headr label {
+    font-size: 20px;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-family: sans-serif;
+    margin-bottom: 6px;
+}
+.instance-name {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: black;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.instance-desc {
+    font-size: 15px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: black;
+    text-align: left;
+    margin-bottom: 10px;
+    height: 70px;
+    width: 200px;
+    color: grey;
+}
+
+.no-border {
+    border: none;
 }
 
 .btn-create {
@@ -383,6 +451,14 @@ li{
     list-style: none;
 }
 
+.btn-add {
+    margin: 10px;
+    width: 130px;
+    height: 40px;
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 5px;
+}
 
 .range {
   align-items: center;
@@ -417,5 +493,8 @@ li{
     align-items: center;
 }
 
+.headr .btn-create {
+    margin-top: 10px;
+}
 
 </style>

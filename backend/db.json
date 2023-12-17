@@ -1,6 +1,5 @@
 [
     {
-
         "class_name": "testtt",
         "class_desc": "ahoj",
         "id": "78ff97b6-0b84-4c22-bc47-29b2fcee61e4",
@@ -170,38 +169,26 @@
                 "rating": -1,
                 "pinned": false,
                 "ingredients": []
-            }
-        ]
-    },
-    {
-        "class_name": "Bureger",
-        "class_desc": "brg",
-        "id": "b13ab39b-57db-4209-8cde-5157bc8627c6",
-        "instances": [
+            },
             {
-                "id": "e9a6f31e-5174-4371-90fd-8fa3155e4b18",
-                "timestamp": "2023-12-17 17:26:31",
-                "name": "Bureger",
-                "desc": "",
-                "rating": -1,
+                "id": "072a5f51-b69d-4c50-a791-21a88272c132",
+                "timestamp": "2023-12-17 20:59:08",
+                "name": "can delete",
+                "desc": "delete",
+                "rating": 4,
                 "pinned": true,
-                "ingredients": []
-            }
-        ]
-    },
-    {
-        "class_name": "lafjljasdlfjasdlfjlasdfjklasfjlsdafjl;asfjldkasjflkasdjfldasjflsdaf",
-        "class_desc": "",
-        "id": "eba20249-02f6-4b3f-a52a-f5b16f2c99e5",
-        "instances": [
-            {
-                "id": "74fdea16-b3f7-46ba-bac1-a3e08d0361ba",
-                "timestamp": "2023-12-17 18:33:29",
-                "name": "lafjljasdlfjasdlfjlasdfjklasfjlsdafjl;asfjldkasjflkasdjfldasjflsdaf",
-                "desc": "",
-                "rating": -1,
-                "pinned": true,
-                "ingredients": []
+                "ingredients": [
+                    {
+                        "name": "lk",
+                        "quantity": 2,
+                        "unit": "Grams"
+                    },
+                    {
+                        "name": "Sugar",
+                        "quantity": 2,
+                        "unit": "Handfuls"
+                    }
+                ]
             }
         ]
     }
