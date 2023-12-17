@@ -344,10 +344,6 @@ export default {
     color: white;
 }
 
-.ingredients {
-    /* margin-top: 30px; */
-    /* padding: 30px; */
-}
 
 .btn-new {
     margin: 10px;
@@ -525,7 +521,7 @@ li{
     margin: 0 auto;
 }
 
-.form2, form {
+.form2, .headr form {
     display:flex;
     flex-direction: row;
     justify-content: space-evenly;
