@@ -13,19 +13,14 @@
                 "pinned": true,
                 "ingredients": [
                     {
-                        "name": "Sugar",
-                        "unit": "Miligram",
-                        "quantity": 32
-                    },
-                    {
-                        "name": "Milk",
-                        "unit": "Liter",
-                        "quantity": 1
-                    },
-                    {
-                        "name": "sugar",
+                        "name": "new",
                         "unit": "Kilograms",
-                        "quantity": "61095"
+                        "quantity": "582"
+                    },
+                    {
+                        "name": "news",
+                        "unit": "",
+                        "quantity": "634"
                     }
                 ]
             },
