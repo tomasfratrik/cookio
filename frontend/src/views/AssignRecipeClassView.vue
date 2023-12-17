@@ -58,12 +58,6 @@ export default {
     methods: {
         // after we press submit, assign class
         handleSubmit() {
-            if (this.className.length < 3) {
-                this.classNameError = true
-                return
-            } else {
-                this.classNameError = false
-            }
 
 
             const recipeClass = {

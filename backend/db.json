@@ -16,8 +16,8 @@
             {
                 "id": "49517a30-8626-4cbb-9094-b85131021046",
                 "timestamp": "2023-12-17 13:28:26",
-                "name": "xddd",
-                "desc": "Test instance",
+                "name": "lol",
+                "desc": "Test insta",
                 "rating": 5,
                 "pinned": true,
                 "ingredients": [
@@ -42,6 +42,15 @@
                         "unit": "Grams"
                     }
                 ]
+            },
+            {
+                "id": "c28d1db5-ef1f-476d-b841-ccb1fd40aa23",
+                "timestamp": "2023-12-17 23:01:17",
+                "name": "testtt",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
             }
         ],
         "desc": "ahoj"
@@ -72,8 +81,8 @@
         ]
     },
     {
-        "class_name": "Dont delete",
-        "class_desc": "dntdlt",
+        "class_name": "xd",
+        "class_desc": "xd",
         "id": "2818ee07-fb73-44e3-8b29-cfd4e3b8e675",
         "instances": [
             {
@@ -194,6 +203,54 @@
                         "unit": "Handfuls"
                     }
                 ]
+            }
+        ]
+    },
+    {
+        "class_name": "xdd",
+        "class_desc": "xdd",
+        "id": "48c0475b-42d1-444b-aa13-8d7c226ffa11",
+        "instances": [
+            {
+                "id": "f4179303-e412-4ada-8c95-c4f63efd8113",
+                "timestamp": "2023-12-17 23:00:29",
+                "name": "xdd",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            }
+        ]
+    },
+    {
+        "class_name": "nnn",
+        "class_desc": "nnn",
+        "id": "11e8c1ce-8f4b-432f-baa6-819d5b5475b4",
+        "instances": [
+            {
+                "id": "f636cddd-8e65-4390-9120-b3a2ef8cbbb9",
+                "timestamp": "2023-12-17 23:01:36",
+                "name": "nnn",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            }
+        ]
+    },
+    {
+        "class_name": "a",
+        "class_desc": "a",
+        "id": "a745a86e-7f25-44f5-bd6f-d0345838007f",
+        "instances": [
+            {
+                "id": "6af5a413-8817-4ea1-a1df-192253f368fd",
+                "timestamp": "2023-12-17 23:03:50",
+                "name": "a",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
             }
         ]
     }
