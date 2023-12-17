@@ -260,7 +260,6 @@ form {
   background-color: #f0f0f0;
 }
 
-=======
 .ingredient-info{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
