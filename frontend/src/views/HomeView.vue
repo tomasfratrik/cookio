@@ -5,7 +5,7 @@
       <router-link :to="{ name: 'AssignRecipeClass' }" custom v-slot="{ navigate }">
       <button @click="navigate" class="btn-create">Add Instance</button>
       </router-link>
-      <input type="text" v-model="search" placeholder="Search">
+        <input type="text" v-model="search" placeholder="Search">
     </div>
 
     <div class="row">
@@ -54,6 +54,7 @@ export default {
       recipes: [],
       pinned_instances: [],
       search: '',
+      orderBy: 'name',
     }
   },
   methods: {
@@ -93,6 +94,7 @@ export default {
     filteredRecipes() {
       return this.recipes.filter(item => item.class_name.includes(this.search));
     }
+
   },
   mounted() {
     getRecipes()

@@ -5,19 +5,19 @@
         "id": "78ff97b6-0b84-4c22-bc47-29b2fcee61e4",
         "instances": [
             {
-                "id": "43b47d3f-c4c5-4fd8-ae05-d6d2b77d55dc",
-                "timestamp": "2023-12-16 19:04:13",
-                "name": "test",
+                "id": "72532b46-9cab-47d5-a04c-0830e7556f1d",
+                "timestamp": "2023-12-17 13:28:02",
+                "name": "2023-12-17 13:28:02",
                 "desc": "",
-                "rating": 5,
-                "pinned": true,
+                "rating": -1,
+                "pinned": false,
                 "ingredients": []
             },
             {
-                "id": "24e84c63-4997-4f28-a8e9-a905edb5a302",
-                "timestamp": "2023-12-16 20:10:06",
-                "name": "2023-12-16 20:10:06",
-                "desc": "",
+                "id": "49517a30-8626-4cbb-9094-b85131021046",
+                "timestamp": "2023-12-17 13:28:26",
+                "name": "xddd",
+                "desc": "Test instance",
                 "rating": -1,
                 "pinned": true,
                 "ingredients": []
@@ -46,6 +46,103 @@
                 "desc": "",
                 "rating": -1,
                 "pinned": true,
+                "ingredients": []
+            }
+        ]
+    },
+    {
+        "class_name": "Dont delete",
+        "class_desc": "dntdlt",
+        "id": "2818ee07-fb73-44e3-8b29-cfd4e3b8e675",
+        "instances": [
+            {
+                "id": "e7d9fe59-ac74-4f48-b2e4-c3b9add35154",
+                "timestamp": "2023-12-17 13:31:37",
+                "name": "2023-12-17 13:31:37",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "d2021c77-a677-4898-9096-2c8ab416aaff",
+                "timestamp": "2023-12-17 13:31:48",
+                "name": "dnttldt",
+                "desc": "dnt",
+                "rating": 5,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "a459049a-eb11-4104-ac98-85bcd04a4458",
+                "timestamp": "2023-12-17 13:31:59",
+                "name": "2023-12-17 13:31:59 xdd",
+                "desc": "",
+                "rating": 10,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "918b241e-f181-4357-98c9-e5b34b555497",
+                "timestamp": "2023-12-17 14:48:07",
+                "name": "aaa",
+                "desc": "z",
+                "rating": 1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "a093a11c-4eea-4537-8a2a-6938f224bb2b",
+                "timestamp": "2023-12-17 14:52:21",
+                "name": "2023-12-17 14:52:21",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "5dc2a5f5-b3b8-48ba-9d2a-c636ece08e3c",
+                "timestamp": "2023-12-17 14:52:26",
+                "name": "2023-12-17 14:52:26",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "33646e07-6a20-40f9-bbf8-dfe4a16b5dfd",
+                "timestamp": "2023-12-17 14:52:28",
+                "name": "2023-12-17 14:52:28",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "4eef7e32-1dd0-46a3-9ad9-44e84790bf00",
+                "timestamp": "2023-12-17 14:53:02",
+                "name": "2023-12-17 14:53:02",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "14126b29-4837-44e2-88f9-3659405177a9",
+                "timestamp": "2023-12-17 14:53:13",
+                "name": "2023-12-17 14:53:13",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "64add96e-001e-4254-a446-c4f56a4f5c1c",
+                "timestamp": "2023-12-17 16:07:03",
+                "name": "2023-12-17 16:07:03",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
                 "ingredients": []
             }
         ]
