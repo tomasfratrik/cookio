@@ -1,7 +1,9 @@
 <template>
+    <Alert ref="alertDetail" theme="success"></Alert>
     <div class="InstanceDetailView">       
         <div v-if="toggleModal">
             <Modal @close="toggleModal_">
+                <Alert ref="alertModal" theme="success"></Alert>
                 <form @submit.prevent="addIngredient">
                     <label style="margin-right: 10px;">Select ingredient</label>           
                     <input v-model="ingredientName" placeholder="Search ..." @click="activate_searching" class="search-input"/>
@@ -13,7 +15,7 @@
                         
                     <div class="select_unit" >
                     <label>Select unit</label>
-                    <select v-model="unit">
+                    <select v-model="unit" required>
                         <option>Grams</option>
                         <option>Kilograms</option>
                         <option>Handfuls</option>
@@ -46,6 +48,7 @@
                     </div>
                 </form>
             </Modal>
+            
         </div>
 
         <label>Edit </label>
@@ -103,9 +106,11 @@ import getInstance from '@/composables/getInstance'
 import updateInstance from '@/composables/updateInstance'
 import Modal from '@/components/Modal.vue'
 import axios, { all } from 'axios'
+import Alert from '@/components/Alert.vue'
+
 export default {
     components: {
-        Modal,
+        Modal, Alert
     },
     data() {
         return {
@@ -138,11 +143,21 @@ export default {
             this.toggleModalUp = !this.toggleModalUp
         },
         addIngredient() {
+            
+            for (var i = 0; i < this.ingredients.length; i++){
+                if (this.ingredients[i].name === this.ingredientName){
+                    this.alert_modal('error', "Ingredient of that name already in the recipe.");
+                    return false;
+                }
+            }
+            
             const ingredient = {
                 name: this.ingredientName,
                 unit: this.unit,
                 quantity: this.quantity,
             }
+
+                
             const url = `http://localhost:5000/instance/${this.instance.id}/ingredients`
             axios.post(url, ingredient)
                 .then(response => {
@@ -152,13 +167,21 @@ export default {
                     // this.instance.ingredients.push(ingredient)
                     // this.ingredients.push(ingredient)
                 })
+            this.alert_modal('success', "Ingredient successfully added.");
+            return true;
         },
         deleteIngredient(ingredient) {
             const url = `http://localhost:5000/instance/${this.instance.id}/ingredients`
-            axios.delete(url, { data: ingredient })
-                .then(response => {
-                    this.ingredients = response.data
-                })
+            try{
+                axios.delete(url, { data: ingredient })
+                    .then(response => {
+                        this.ingredients = response.data
+                    })
+                this.alert_detail('success', "Ingredient successfully deleted.");
+            }
+            catch{
+                this.alert_detail('error', "Ooops, somethinw went wrong.");
+            }
         },
 
         get_unique_ingredients(){
@@ -183,6 +206,12 @@ export default {
                 .then(response => {
                     this.ingredients = response.data
                 })
+        },
+        alert_modal(type, msg) {
+            this.$refs.alertModal.showAlert(type, msg);
+        },
+        alert_detail(type, msg) {
+            this.$refs.alertDetail.showAlert(type, msg);
         },
     },
     mounted() {
