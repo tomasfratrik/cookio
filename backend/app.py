@@ -130,7 +130,7 @@ def recipe_class_detail(_id):
         if recipe_class is None:
             return jsonify('error')
         recipe_class['class_name'] = data['class_name']
-        recipe_class['desc'] = data['class_desc']
+        recipe_class['class_desc'] = data['class_desc']
         utils.write_json_file('db.json', db)
         return jsonify(recipe_class)
 
