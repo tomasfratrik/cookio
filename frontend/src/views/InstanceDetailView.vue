@@ -189,6 +189,28 @@ form {
     align-items: center;
 }
 
+.search-input {
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.result-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-list li {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.result-list li:hover {
+  background-color: #f0f0f0;
+}
+
 .ingredient-info{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
