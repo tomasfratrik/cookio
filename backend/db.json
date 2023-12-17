@@ -35,6 +35,11 @@
                         "name": "mlekoasd",
                         "unit": "Liters",
                         "quantity": "108"
+                    },
+                    {
+                        "name": "skorica",
+                        "unit": "Grams",
+                        "quantity": 4
                     }
                 ]
             }

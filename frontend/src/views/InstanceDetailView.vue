@@ -112,41 +112,45 @@
             </div>
             <div v-if="edit">
                 <form @submit.prevent="handleSubmit">
-                    <label>Meal name</label>
-                    <input class="instance-name" type="text" v-model="instance.name">
-                    <label>Mead description</label>
-                    <textarea class="instance-desc" v-model="instance.desc"></textarea>
-                    <!-- <input class="instance-desc" type="text" v-model="instance.desc"> -->
-                    <label>Rating</label>
-                    <p>Set to -1, if not rated</p>
-                    <input type="number" v-model="instance.rating" min="-1" max="10">
-                    <label>Pinned</label>
-                    <input type="checkbox" v-model="instance.pinned">
-                    <button class="btn-create">Save</button>
+                    <div class="left">
+                        <label>Meal name</label>
+                        <input class="instance-name" type="text" v-model="instance.name"><br>
+                        <label>Meal description</label>
+                        <textarea class="instance-desc" v-model="instance.desc"></textarea>
+                    </div>
+                    <div class="right">
+                        <label>Rating</label>
+                        <p>Set to -1, if not rated</p>
+                        <input type="number" v-model="instance.rating" min="-1" max="10"><br>
+                        <label class="pinned">Pinned</label>
+                        <input type="checkbox" v-model="instance.pinned">
+                        <button class="btn-create">Save</button>
+                    </div>
                 </form>
             </div>
             <div v-else class="form2">
-                <label>Meal name</label>
-                <h1 class="instance-name">{{ instance.name }}</h1>
-                <label>Meal description</label>
-                <!-- <p class="instance-desc">{{ instance.desc }}</p> -->
-                <textarea class="instance-desc no-border" v-model="instance.desc" disabled></textarea>
-                <label>Rating</label>
-                <p v-if="instance.rating >= 0"> Rating: {{ instance.rating }}</p>
-                <p v-else> Rating: not rated yet!</p>
-                <label>Pinned</label>
-                <p>Pinned:</p>
-                <input disabled="true" type="checkbox" v-model="instance.pinned">
+                <div class="left">
+                    <label>Meal name</label>
+                    <h1 class="instance-name">{{ instance.name }}</h1>
+                    <label>Meal description</label>
+                    <textarea class="instance-desc no-border" v-model="instance.desc" disabled></textarea>
+                </div>
+                <div class="right">
+                    <label>Rating</label>
+                    <p v-if="instance.rating >= 0"> Rating: {{ instance.rating }}</p>
+                    <p v-else> Rating: not rated yet!</p>
+                    <label class="pinned">Pinned</label>
+                    <input disabled="true" type="checkbox" v-model="instance.pinned">
+                </div>
             </div>
         </div>
 
             <div class="ingredients">
-                <h2>Ingredients: </h2>
                 <button @click="toggleModal_" class="btn-add">Add Ingredients</button>
                 <div v-if="ingredients.length === 0">
                     <p>No ingredients</p>
                 </div>
-                <ul>
+                <ul class="box">
                     <li v-for="ingredient in ingredients" :key="ingredient.name">
                         <div  class="ingredient-info">
                             <span class="ingredient-name">{{ ingredient.name }}</span>
@@ -154,7 +158,7 @@
                             <span class="ingredient-unit">{{ ingredient.unit }}</span>
                             <div>
                                 <button class="btn-delete" @click="deleteIngredient(ingredient)">Delete</button>
-                                <button class="btn-delete" @click="open_modal_update(ingredient)">Update</button>
+                                <button class="btn-update" @click="open_modal_update(ingredient)">Update</button>
                             </div>
                         </div> 
                     </li>
@@ -312,11 +316,13 @@ export default {
 </script>
 
 <style scoped>
+
+
 .headr{
     max-width: 500px;
     margin: 0 auto;
 }
-.btn-delete {
+.btn-update, .btn-delete {
     background-color: white;
     text-decoration: none;
     color: var(--primary-color);
@@ -333,9 +339,14 @@ export default {
     margin-top: -12px;
 }
 
+.btn-delete{
+    background-color: rgb(218, 69, 69);
+    color: white;
+}
+
 .ingredients {
-    margin-top: 30px;
-    padding: 30px;
+    /* margin-top: 30px; */
+    /* padding: 30px; */
 }
 
 .btn-new {
@@ -362,13 +373,22 @@ form {
 .edit {
     text-align: center;
 }
+.edit h1 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
 
 .headr label {
     font-size: 20px;
     color: var(--primary-color);
     font-weight: bold;
     font-family: sans-serif;
-    margin-bottom: 6px;
+    /* margin-bottom: 6px; */
 }
 .instance-name {
     font-size: 18px;
@@ -389,6 +409,7 @@ form {
     height: 70px;
     width: 200px;
     color: grey;
+    display: block;
 }
 
 .no-border {
@@ -495,6 +516,25 @@ li{
 
 .headr .btn-create {
     margin-top: 10px;
+}
+
+.box {
+    max-width: 100%;
+    width: 1000px;
+    height: 300px;
+    margin: 0 auto;
+}
+
+.form2, form {
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+.pinned {
+    margin-right: 10px;
 }
 
 </style>
