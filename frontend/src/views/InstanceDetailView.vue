@@ -3,7 +3,7 @@
         <div v-if="toggleModal">
             <Modal @close="toggleModal_">
                 <form @submit.prevent="addIngredient">
-                    <label style="margin-right: 10px;">Ingredient name</label>           
+                    <label style="margin-right: 10px;">Select ingredient</label>           
                     <input v-model="ingredientName" placeholder="Search ..." @click="activate_searching" class="search-input"/>
                     <ul v-if="searching_allowed" class="result-list">
                         <li v-for="item in filteredList" @click="set_searching(item)" class="result-list li">
@@ -12,7 +12,7 @@
                     </ul>
                         
                     <div class="select_unit" >
-                    <label>Select Unit</label>
+                    <label>Select unit</label>
                     <select v-model="unit">
                         <option>Grams</option>
                         <option>Kilograms</option>
@@ -27,17 +27,17 @@
                         <option>Pounds</option>
                     </select>
                     </div>
-                    <label>Quantity</label>
+                    <label>Select quantity</label>
                     <input type="range" v-model="quantity" :min="range_low" :max="range_high" step="1">
                     <div class="slider_info" >
                         <span>
-                            <input class="range" type="number" v-model="range_low" required placeholder="Choose quantity">
+                            <input class="range" type="number" v-model="range_low" required >
                         </span>
                         <span>
-                            <input class="num_show" type="number" v-model="quantity" required placeholder="Choose quantity">
+                            <input class="num_show" type="number" v-model="quantity" required placeholder="Value">
                         </span>
                         <span>
-                            <input class="range" type="number" v-model="range_high" required placeholder="Choose quantity">
+                            <input class="range" type="number" v-model="range_high" required >
                         </span>
                     </div>
                     <div style="display: flex; align-items: center; justify-content: space-between; width: 70%;">
@@ -297,7 +297,7 @@ li{
 
 .num_show {
   height: 50px;
-  width: 50px;
+  width: 75px;
   margin: 25px;
   text-align: center;
 }
