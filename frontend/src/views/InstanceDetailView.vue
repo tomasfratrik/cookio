@@ -1,20 +1,40 @@
 <template>
-    <div class="InstanceDetailView"> 
+    <div class="InstanceDetailView">       
         <div v-if="toggleModal">
             <Modal @close="toggleModal_">
                 <form @submit.prevent="addIngredient">
-                    <label>Ingredient name</label>
-                    <input type="text" v-model="ingredientName" required>
+                    <label style="margin-right: 10px;">Ingredient name</label>           
+                    <input v-model="ingredientName" placeholder="Search ..." @click="activate_searching" class="search-input"/>
+                    <ul v-if="searching_allowed" class="result-list">
+                        <li v-for="item in filteredList" @click="set_searching(item)" class="result-list li">
+                            {{ item }}
+                        </li>
+                    </ul>
+                        
+
                     <label>Select Unit</label>
                     <select v-model="unit">
-                        <option>Gram</option>
-                        <option>Miligram</option>
-                        <option>Liter</option>
-                        <option>Mililiter</option>
+                        <option>Grams</option>
+                        <option>Kilograms</option>
+                        <option>Handfuls</option>
+                        <option>Liters</option>
+                        <option>Mililiters</option>
+                        <option>Centiliters</option>
+                        <option>Cups</option>
+                        <option>Ounces</option>
+                        <option>Teaspoons</option>
+                        <option>Tablespoons</option>
+                        <option>Pounds</option>
                     </select>
                     <label>Quantity</label>
-                    <input type="number" v-model="quantity" required>
-                    <button class="btn-create">Add</button>
+                    <input type="range" v-model="quantity" min="0" max="100000" step="1">
+                        <span>
+                            <input type="number" v-model="quantity" required placeholder="Choose quantity">
+                        </span>
+                    <div style="display: flex; align-items: center;">
+                        <button class="btn-create">Add</button>
+                        <button @click="toggleModal_" class="btn-create">Close</button>
+                    </div>
                 </form>
             </Modal>
         </div>
@@ -62,7 +82,7 @@
             <p>Pinned:</p>
             <input disabled="true" type="checkbox" v-model="instance.pinned">
             <h2>Ingredients: </h2>
-            <button @click="toggleModal_">Add Ingrediets</button>
+            <button @click="toggleModal_">Add Ingredients</button>
             <div v-if="ingredients.length === 0">
                 <p>No ingredients</p>
             </div>
@@ -90,7 +110,7 @@
 import getInstance from '@/composables/getInstance'
 import updateInstance from '@/composables/updateInstance'
 import Modal from '@/components/Modal.vue'
-import axios from 'axios'
+import axios, { all } from 'axios'
 export default {
     components: {
         Modal,
@@ -101,12 +121,13 @@ export default {
             instance: {},
             pinned_instances: [],
             ingredients: [],
+            unique_ingredients: [],
+            searching_allowed: false,
             toggleModal: false,
             ingredientName: '',
             unit: '',
             quantity: '',
             edit:  false,
-
         }
     },
     methods: {
@@ -145,6 +166,23 @@ export default {
                     this.ingredients = response.data
                 })
         },
+
+        get_unique_ingredients(){
+            const url = `http://127.0.0.1:5000/ingredients`
+            axios.get(url)
+                .then(response =>{
+                    this.unique_ingredients = response.data
+                })
+            return this.unique_ingredients
+        },
+        set_searching(item){
+            this.ingredientName = item
+            this.searching_allowed = false
+        },
+        activate_searching(){
+            this.unique_ingredients = this.get_unique_ingredients()
+            this.searching_allowed = true
+        },
         updateIngredient(ingredient) {
             const url = `http://localhost:5000/instance/${this.instance.id}/ingredients`
             axios.updateInstance(url, { data: ingredient })
@@ -160,6 +198,12 @@ export default {
                 this.ingredients = this.instance.ingredients
             })
     },
+    computed: {
+        filteredList() {
+            if (this.ingredientName !== '')
+                return this.unique_ingredients.filter(item => item.toLowerCase().includes(this.ingredientName.toLowerCase()))
+        },
+  },
 }
 
 </script>
@@ -182,12 +226,17 @@ export default {
     margin-top: -12px;
 }
 
+.btn-new {
+    margin: 10px;
+}
+
 form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
 }
+
 
 .search-input {
   padding: 10px;
