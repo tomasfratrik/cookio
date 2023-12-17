@@ -160,11 +160,6 @@ def recipes():
         return jsonify(data)
     return data
 
-@app.route('/ingredients', methods=['GET', 'POST'])
-def ingredients():
-    unique_ingredients = utils.get_unique_ingredients()
-    return jsonify(unique_ingredients)
-
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,20 +1,63 @@
 [
     {
-        "class_name": "sadasdd",
-        "class_desc": "asdasddasd",
-        "id": "31493e86-850d-424b-a4cb-42b682b3f716",
+        "class_name": "testtt",
+        "class_desc": "ahoj",
+        "id": "78ff97b6-0b84-4c22-bc47-29b2fcee61e4",
         "instances": [
             {
-                "id": "fa929b79-c889-446a-b249-a9bd3b804df3",
-                "timestamp": "2023-12-16 20:55:51",
-                "name": "2023-12-16 20:55:51",
+                "id": "43b47d3f-c4c5-4fd8-ae05-d6d2b77d55dc",
+                "timestamp": "2023-12-16 19:04:13",
+                "name": "test",
                 "desc": "",
                 "rating": 5,
-
+                "pinned": true,
+                "ingredients": [
+                    {
+                        "name": "Sugar",
+                        "unit": "Miligram",
+                        "quantity": 31
+                    },
+                    {
+                        "name": "Milk",
+                        "unit": "Liter",
+                        "quantity": 1
+                    }
+                ]
+            },
+            {
+                "id": "24e84c63-4997-4f28-a8e9-a905edb5a302",
+                "timestamp": "2023-12-16 20:10:06",
+                "name": "2023-12-16 20:10:06",
+                "desc": "",
+                "rating": -1,
+                "pinned": true,
+                "ingredients": []
             }
-        ]
+        ],
+        "desc": "ahoj"
     },
     {
+        "class_name": "asdf",
+        "class_desc": "sdg",
+        "id": "2281099c-9734-4883-a854-b92e6cb5fd2d",
+        "instances": [
+            {
+                "id": "058e1b88-2825-4224-ba4b-5b4f16178b87",
+                "timestamp": "2023-12-16 20:13:42",
+                "name": "2023-12-16 20:13:42",
+                "desc": "",
+                "rating": -1,
+                "pinned": true,
+                "ingredients": []
+            },
+            {
+                "id": "5e20b973-bb4e-4cf2-9b54-645cbcade3c6",
+                "timestamp": "2023-12-16 20:14:13",
+                "name": "2023-12-16 20:14:13",
+                "desc": "",
+                "rating": -1,
+                "pinned": true,
+                "ingredients": []
             }
         ]
     }
