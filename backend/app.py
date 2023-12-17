@@ -102,7 +102,7 @@ def recipe_classes():
         instance = {}
         instance['id'] = str(uuid.uuid4())
         instance['timestamp'] = utils.get_timestamp()
-        instance['name'] = instance['timestamp'] 
+        instance['name'] = recipe_class_name
         instance['desc'] = ""
         instance['rating'] = -1
         instance['pinned'] = False
@@ -149,7 +149,7 @@ def recipe_class_detail(_id):
         if recipe_class is None:
             return jsonify('error')
         recipe_class['class_name'] = data['class_name']
-        recipe_class['desc'] = data['class_desc']
+        recipe_class['class_desc'] = data['class_desc']
         utils.write_json_file('db.json', db)
         return jsonify(recipe_class)
 

@@ -3,7 +3,7 @@
     <Alert ref="alertBox" theme="success"></Alert>
     <div class="header">
       <router-link :to="{ name: 'AssignRecipeClass' }" custom v-slot="{ navigate }">
-      <button @click="navigate" class="btn-create">Add Instance</button>
+      <button @click="navigate" class="btn-create">Add meal</button>
       </router-link>
         <input type="text" v-model="search" placeholder="Search">
     </div>
@@ -11,11 +11,12 @@
     <div class="row">
 
       <div class="left">
-        <h2>Recipe classes</h2>
+        <h2>Recipes </h2>
         <div class="box">
           <div class="recipe" v-for="recipe in filteredRecipes" :key="recipe.id">
+              <!-- <p>{{ recipe.class_name }}</p> -->
               <h2>{{ recipe.class_name }}</h2>
-              <button @click="classInstances(recipe)">Instances</button>
+              <button @click="classInstances(recipe)">Meals</button>
               <button @click="classDetail(recipe)">Detail</button>
               <button class="btn-delete" @click="_deleteClass(recipe)">Delete</button>
           </div>
@@ -23,10 +24,12 @@
       </div>
 
       <div class="right">
-        <h2>Pinned instances</h2>
+        <h2>Pinned meals</h2>
         <div class="box">
           <div class="instance" @click="instanceDetail(instance)" v-for="instance in filteredInstances" :key="instance.id">
-              <h3>{{ instance.name }}</h3>
+            <!-- <div v-if="username.length<8">Welcome, {{ username }}</div> -->
+              <h3 v-if="instance.name.length < 15">{{ instance.name }}</h3>
+              <h3 v-else>{{ instance.name.substring(0, 15) }}...</h3>
               <p v-if="instance.rating > 0">Rating: {{ instance.rating }}</p>
               <p v-else>Rating: not rated yet!</p>
               <!-- <button @click="instanceDetail(instance)">Detail</button> -->
@@ -40,7 +43,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import getRecipes from '@/composables/getRecipes'
 import deleteRecipeClass from '@/composables/deleteRecipeClass'
 import getPinnedInstances from '@/composables/getPinnedInstances'
@@ -128,9 +130,13 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  min-height: 50px;
 }
 .recipe h2 {
+  max-width: 270px;
   flex: 1;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 .recipe button {
@@ -142,6 +148,7 @@ export default {
   color: black;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  height: 30px;
 }
 
 .recipe button:hover {
@@ -251,6 +258,9 @@ h1 {
   margin-bottom: 20px;
 }
 
+.home .left .box {
+  width: 500px;
+}
 /* .instance:hover::after {
 
 } */

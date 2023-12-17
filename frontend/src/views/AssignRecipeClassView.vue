@@ -1,31 +1,38 @@
 <template>
     <div class="AssignRecipeClass">
-        <div class="left">
-            <div class="box">
-                <div class="recipe" v-for="recipe in recipes" :key="recipe.id" @click="select(recipe)">
-                    <h2>{{ recipe.class_name }}</h2>
-                    <p>{{ recipe.class_desc }}</p>
+        <div class="header">
+            <h1>Where should be meal created?</h1>
+            <p>Crete own by typing name of different recipe that doesn't yet exist</p>
+            <p>Or crete meal under already existing recipe by clicking at it, in left panel</p>
+            <input type="text" v-model="search" placeholder="Search">
+        </div>
+        <div class="row">
+            <div class="left">
+                <div class="box">
+                    <div class="recipe" v-for="recipe in filteredRecipes" :key="recipe.id" @click="select(recipe)">
+                        <h2>{{ recipe.class_name }}</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="right">
-            <form @submit.prevent="handleSubmit">
-                <div class="Class_name">
-                    <label>Class recipe name:</label>
-                    <br>
-                    <input type="text" v-model="className" required>
-                </div>
-                <div v-if="classNameError" class="error-one-liner">
-                    Class name must be at least 3 characters long
-                </div>
-                <div class="Class_desc">
-                    <label>Class description:</label>
-                    <br>
-                    <textarea v-model="classDesc" ></textarea>
-                    <br>
-                    <button class="btn-create">Create</button>
-                </div>
-            </form>
+            <div class="right">
+                <form @submit.prevent="handleSubmit">
+                    <div class="Class_name">
+                        <label>Recipe name:</label>
+                        <br>
+                        <input type="text" v-model="className" required>
+                    </div>
+                    <div v-if="classNameError" class="error-one-liner">
+                        Class name must be at least 3 characters long
+                    </div>
+                    <div class="Class_desc">
+                        <label>Recipe description:</label>
+                        <br>
+                        <textarea v-model="classDesc" ></textarea>
+                        <br>
+                        <button class="btn-create">Create</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </template>
@@ -42,6 +49,7 @@ export default {
             recipes: [],
             classNameError: false,
             classDescError: false,
+            search: '',
         }
     },
     methods: {
@@ -96,12 +104,23 @@ export default {
             .then((data) => {
                 this.recipes = data
             })
+    },
+    computed: {
+        filteredRecipes() {
+            return this.recipes.filter(item => item.class_name.includes(this.search));
+        }
     }
 }
 </script>
 
 <style scoped>
-.AssignRecipeClass {
+
+.recipe:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    cursor: pointer;
+}
+.row {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -136,10 +155,10 @@ export default {
 }
 .box {
     border: 1px solid black;
-    width: 300px;
+    width: 400px;
     border-radius: 5px;
     padding: 10px;
-    height: 450px;
+    height: 300px;
     overflow: scroll;
 }
 .right{
@@ -178,5 +197,16 @@ p{
     font-size: 15px;
     font-weight: bold;
     font-family: sans-serif;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.recipe h2 {
+    max-width: 100%;
 }
 </style>

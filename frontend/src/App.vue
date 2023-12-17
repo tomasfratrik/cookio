@@ -82,19 +82,13 @@ nav {
 .link{
   text-decoration: none;
   color: black;
-  position: fixed;
+  position: absolute;
   top: 5px;
 }
 
-/* .home {
-  position: fixed;
-  top: 5px;
-  left: 5px;
-} */
-
 .nav-content .home-icon{
   color: var(--primary-color);
-  position: fixed;
+  position: absolute;
   left: calc(50% + 100px );
   top: 5px;
   font-size: 30px;
@@ -116,7 +110,7 @@ h1 {
 .arrow-right {
   color:white;
   font-size: 30px;
-  position: fixed;
+  position: absolute;
   left: calc(50% - 120px );
   top: 10px;
   font-size: 20px;
@@ -127,7 +121,7 @@ h1 {
 .arrow-left {
   color:white;
   font-size: 30px;
-  position: fixed;
+  position: absolute;
   left: calc(50% - 170px );
   top: 10px;
   font-size: 20px;

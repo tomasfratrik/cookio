@@ -2,7 +2,7 @@
 <div class="ClassInstances">
     <Alert ref="alertBox"></Alert>
     <div class="header">
-        <h1>Class instances</h1>
+        <h1>Recipe meals</h1>
         <div class="searchBox">
             <input type="text" class="search" v-model="search" placeholder="Search">
             <div>
@@ -116,6 +116,11 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+.instance h2 {
+    max-width: 400px;
+    word-wrap: break-word;
+    white-space: normal;
 }
 .instance .btn-detail, .instance .btn-delete {
     /* padding: 10px; */
