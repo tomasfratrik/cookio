@@ -184,6 +184,45 @@ def ingredients():
     unique_ingredients = utils.get_unique_ingredients()
     return jsonify(unique_ingredients)
 
+@app.route('/groups', methods=['GET', 'POST'])
+def groups():
+    if request.method == 'GET':
+        groups_db = utils.get_all_groups()
+        return jsonify(groups_db)
+    elif request.method == 'POST':
+        groups_db = utils.get_all_groups()
+        data = request.get_json()
+        group_name = data['name']
+        exists = utils.get_group_by_name(group_name)
+        if exists is not None:
+            return jsonify('error')
+        group = {}
+        group['name'] = group_name
+        group['instances'] = []
+        groups_db.append(group)
+        utils.write_json_file('groups.json', groups_db)
+        return jsonify(group)
+
+@app.route('/group/<_name>', methods=['GET', 'POST'])
+def group(_name):
+    if request.method == 'GET':
+        group = utils.get_group_by_name(_name)
+        if group is not None:
+            return jsonify(group)
+        else:
+            return jsonify('error')
+
+# @app.route('/group/<_name>/add/<_instance>', methods=['GET', 'POST'])
+# def add_instance_to_group(_name, _instance):
+#     if request.method == 'POST':
+#         group = utils.get_group_by_name(_name)
+#         if group is not None:
+#             group['instances'].append(_instance)
+#             utils.write_json_file('groups.json', group)
+#             return jsonify(group)
+#         else:
+#             return jsonify('error')
+
 
 if __name__ == '__main__':
     app.run(debug=True)

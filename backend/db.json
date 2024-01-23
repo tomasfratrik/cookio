@@ -1,220 +1,71 @@
 [
     {
-        "class_name": "testtt",
-        "class_desc": "ahoj",
-        "id": "78ff97b6-0b84-4c22-bc47-29b2fcee61e4",
+        "class_name": "Pancakes",
+        "class_desc": "Pancakes desc",
+        "id": "d3505e5f-2a2e-46f3-b428-8e3e29a37c98",
         "instances": [
             {
-                "id": "72532b46-9cab-47d5-a04c-0830e7556f1d",
-                "timestamp": "2023-12-17 13:28:02",
-                "name": "2023-12-17 13:28:02",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "49517a30-8626-4cbb-9094-b85131021046",
-                "timestamp": "2023-12-17 13:28:26",
-                "name": "lol",
-                "desc": "Test insta",
-                "rating": 5,
+                "id": "0f82885c-97ea-4b7b-988b-c387b74f996e",
+                "timestamp": "2024-01-09 12:01:32",
+                "name": "Pancake 1 ",
+                "desc": "the best pancake recipe",
+                "rating": 9,
                 "pinned": true,
                 "ingredients": [
                     {
-                        "name": "mleko",
-                        "quantity": "234",
-                        "unit": "Liters"
-                    },
-                    {
-                        "name": "maslo",
-                        "quantity": "85",
-                        "unit": "Kilograms"
-                    },
-                    {
-                        "name": "mlekoasd",
-                        "quantity": "108",
-                        "unit": "Liters"
-                    },
-                    {
-                        "name": "skorica",
-                        "quantity": 4,
-                        "unit": "Grams"
-                    }
-                ]
-            },
-            {
-                "id": "c28d1db5-ef1f-476d-b841-ccb1fd40aa23",
-                "timestamp": "2023-12-17 23:01:17",
-                "name": "testtt",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            }
-        ],
-        "desc": "ahoj"
-    },
-    {
-        "class_name": "asdf",
-        "class_desc": "sdg",
-        "id": "2281099c-9734-4883-a854-b92e6cb5fd2d",
-        "instances": [
-            {
-                "id": "058e1b88-2825-4224-ba4b-5b4f16178b87",
-                "timestamp": "2023-12-16 20:13:42",
-                "name": "2023-12-16 20:13:42",
-                "desc": "",
-                "rating": -1,
-                "pinned": true,
-                "ingredients": []
-            },
-            {
-                "id": "5e20b973-bb4e-4cf2-9b54-645cbcade3c6",
-                "timestamp": "2023-12-16 20:14:13",
-                "name": "2023-12-16 20:14:13",
-                "desc": "",
-                "rating": -1,
-                "pinned": true,
-                "ingredients": []
-            }
-        ]
-    },
-    {
-        "class_name": "xd",
-        "class_desc": "xd",
-        "id": "2818ee07-fb73-44e3-8b29-cfd4e3b8e675",
-        "instances": [
-            {
-                "id": "e7d9fe59-ac74-4f48-b2e4-c3b9add35154",
-                "timestamp": "2023-12-17 13:31:37",
-                "name": "2023-12-17 13:31:37",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "d2021c77-a677-4898-9096-2c8ab416aaff",
-                "timestamp": "2023-12-17 13:31:48",
-                "name": "dnttldt",
-                "desc": "dnt",
-                "rating": 5,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "a459049a-eb11-4104-ac98-85bcd04a4458",
-                "timestamp": "2023-12-17 13:31:59",
-                "name": "2023-12-17 13:31:59 xdd",
-                "desc": "",
-                "rating": 10,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "918b241e-f181-4357-98c9-e5b34b555497",
-                "timestamp": "2023-12-17 14:48:07",
-                "name": "aaa",
-                "desc": "z",
-                "rating": 1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "a093a11c-4eea-4537-8a2a-6938f224bb2b",
-                "timestamp": "2023-12-17 14:52:21",
-                "name": "2023-12-17 14:52:21",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "5dc2a5f5-b3b8-48ba-9d2a-c636ece08e3c",
-                "timestamp": "2023-12-17 14:52:26",
-                "name": "2023-12-17 14:52:26",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "33646e07-6a20-40f9-bbf8-dfe4a16b5dfd",
-                "timestamp": "2023-12-17 14:52:28",
-                "name": "2023-12-17 14:52:28",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "4eef7e32-1dd0-46a3-9ad9-44e84790bf00",
-                "timestamp": "2023-12-17 14:53:02",
-                "name": "2023-12-17 14:53:02",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "14126b29-4837-44e2-88f9-3659405177a9",
-                "timestamp": "2023-12-17 14:53:13",
-                "name": "2023-12-17 14:53:13",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "64add96e-001e-4254-a446-c4f56a4f5c1c",
-                "timestamp": "2023-12-17 16:07:03",
-                "name": "2023-12-17 16:07:03",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "b70d7bf6-4055-4735-a309-e6382140c4d1",
-                "timestamp": "2023-12-17 17:56:10",
-                "name": "Dont delete",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "072a5f51-b69d-4c50-a791-21a88272c132",
-                "timestamp": "2023-12-17 20:59:08",
-                "name": "can delete",
-                "desc": "delete",
-                "rating": 4,
-                "pinned": true,
-                "ingredients": [
-                    {
-                        "name": "lk",
-                        "quantity": 2,
-                        "unit": "Grams"
-                    },
-                    {
-                        "name": "Sugar",
+                        "name": "Egg",
                         "quantity": 2,
                         "unit": "Handfuls"
+                    },
+                    {
+                        "name": "flour",
+                        "quantity": 100,
+                        "unit": "Grams"
+                    },
+                    {
+                        "name": "sugar",
+                        "quantity": 1,
+                        "unit": "Teaspoons"
                     }
                 ]
-            }
-        ]
-    },
-    {
-        "class_name": "xdd",
-        "class_desc": "xdd",
-        "id": "48c0475b-42d1-444b-aa13-8d7c226ffa11",
-        "instances": [
+            },
             {
-                "id": "f4179303-e412-4ada-8c95-c4f63efd8113",
-                "timestamp": "2023-12-17 23:00:29",
-                "name": "xdd",
+                "id": "9b986146-8a55-4d29-b60e-5889608e6009",
+                "timestamp": "2024-01-09 12:06:54",
+                "name": "Pancakes - worst",
+                "desc": "",
+                "rating": 0,
+                "pinned": false,
+                "ingredients": [
+                    {
+                        "name": "flour",
+                        "quantity": 100,
+                        "unit": "Grams"
+                    }
+                ]
+            },
+            {
+                "id": "f59cc12e-537b-403d-aba5-ebe899b1ac7d",
+                "timestamp": "2024-01-09 12:22:16",
+                "name": "Pancakes 2",
+                "desc": "",
+                "rating": 6,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "828a56f3-7d3d-4f08-8868-6b286ebae0e1",
+                "timestamp": "2024-01-09 12:27:25",
+                "name": "Pancakes more sugar",
+                "desc": "",
+                "rating": 7,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "0f4347ae-b0f4-4551-9271-65ba58ef3678",
+                "timestamp": "2024-01-09 12:29:26",
+                "name": "Pancakes - delete",
                 "desc": "",
                 "rating": -1,
                 "pinned": false,
@@ -223,33 +74,17 @@
         ]
     },
     {
-        "class_name": "nnn",
-        "class_desc": "nnn",
-        "id": "11e8c1ce-8f4b-432f-baa6-819d5b5475b4",
+        "class_name": "Potato soup",
+        "class_desc": "",
+        "id": "08bacd74-c469-488b-b2d4-48c46513cf64",
         "instances": [
             {
-                "id": "f636cddd-8e65-4390-9120-b3a2ef8cbbb9",
-                "timestamp": "2023-12-17 23:01:36",
-                "name": "nnn",
+                "id": "87a6415d-7272-4346-9535-7b324de97a09",
+                "timestamp": "2024-01-09 12:25:43",
+                "name": "Potato soup",
                 "desc": "",
-                "rating": -1,
-                "pinned": false,
-                "ingredients": []
-            }
-        ]
-    },
-    {
-        "class_name": "a",
-        "class_desc": "a",
-        "id": "a745a86e-7f25-44f5-bd6f-d0345838007f",
-        "instances": [
-            {
-                "id": "6af5a413-8817-4ea1-a1df-192253f368fd",
-                "timestamp": "2023-12-17 23:03:50",
-                "name": "a",
-                "desc": "",
-                "rating": -1,
-                "pinned": false,
+                "rating": 10,
+                "pinned": true,
                 "ingredients": []
             }
         ]

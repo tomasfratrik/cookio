@@ -59,7 +59,6 @@ export default {
         // after we press submit, assign class
         handleSubmit() {
 
-
             const recipeClass = {
                 class_name: this.className,
                 class_desc: this.classDesc,
@@ -72,6 +71,7 @@ export default {
                     console.log(intanceId)
                     this.updateRecipes()
                     this.$router.push({ name: 'InstanceDetail', params: { id: intanceId } })
+                    
                 })
                 .catch(error => {
                     console.log(error)

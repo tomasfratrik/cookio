@@ -52,3 +52,21 @@ def get_unique_ingredients():
                 ingredients.add(ingredient["name"].lower())
     ingredients = list(ingredients)
     return ingredients
+
+def get_all_groups():
+    groups_db = load_json_file('groups.json')
+    return groups_db
+
+def get_group_by_name(name: str):
+    groups_db = load_json_file('groups.json')
+    for group in groups_db:
+        if group['name'].upper() == name.upper():
+            return group
+    return None
+
+def get_group_instances(name: str):
+    groups_db = load_json_file('groups.json')
+    db = load_json_file('db.json')
+
+
+
