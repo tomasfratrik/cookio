@@ -184,13 +184,13 @@ def ingredients():
     unique_ingredients = utils.get_unique_ingredients()
     return jsonify(unique_ingredients)
 
-@app.route('/groups', methods=['GET', 'POST'])
+@app.route('/groups', methods=['GET', 'POST', 'DELETE', 'PUT'])
 def groups():
+    groups_db = utils.get_all_groups()
+    print("here")
     if request.method == 'GET':
-        groups_db = utils.get_all_groups()
         return jsonify(groups_db)
     elif request.method == 'POST':
-        groups_db = utils.get_all_groups()
         data = request.get_json()
         group_name = data['name']
         exists = utils.get_group_by_name(group_name)
@@ -202,6 +202,38 @@ def groups():
         groups_db.append(group)
         utils.write_json_file('groups.json', groups_db)
         return jsonify(group)
+    elif request.method == 'PUT':
+        data = request.get_json()
+        old_group_name = data['old_name']
+        new_group_name = data['new_name']
+        print(f"old group name: {old_group_name}")
+        print(f"new group name: {new_group_name}")
+        group = utils.get_group_by_name(old_group_name)
+        if group is None:
+            return jsonify('error')
+        # check if new group name already exists
+        exists = utils.get_group_by_name(new_group_name)
+        if exists is not None:
+            return jsonify('error')
+        utils.group_rename(old_group_name, new_group_name)
+        return jsonify(group)
+
+@app.route('/groups/<_name>', methods=['GET', 'POST', 'DELETE', 'PUT'])
+def groups_group(_name):
+    groups_db = utils.get_all_groups()
+    if request.method == 'DELETE':
+        # print("here-delete")
+        # data = request.get_json()
+        # print("here-getting data")
+        group_name = _name
+        print(f"deleting group {group_name}")
+        group = utils.get_group_by_name(group_name)
+        if group is None:
+            return jsonify('error')
+        groups_db.remove(group)
+        utils.write_json_file('groups.json', groups_db)
+        return jsonify(groups_db)
+
 
 @app.route('/group/<_name>', methods=['GET', 'POST'])
 def group(_name):

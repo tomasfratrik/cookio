@@ -65,6 +65,7 @@ export default {
 
     opacity: 0;
     animation: showAlert 1s ease-out;
+    z-index: 1000;
 }
 
 @keyframes showAlert{

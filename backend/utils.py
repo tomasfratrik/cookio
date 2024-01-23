@@ -68,5 +68,14 @@ def get_group_instances(name: str):
     groups_db = load_json_file('groups.json')
     db = load_json_file('db.json')
 
+def group_rename(name: str, new_name: str):
+    groups_db = load_json_file('groups.json')
+    for group in groups_db:
+        if group['name'].upper() == name.upper():
+            group['name'] = new_name
+            write_json_file('groups.json', groups_db)
+            return group
+    return None
+
 
 

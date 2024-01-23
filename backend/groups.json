@@ -26,7 +26,11 @@
         ]
     },
     {
-        "name": "test",
+        "name": "testst",
+        "instances": []
+    },
+    {
+        "name": "3",
         "instances": []
     }
 ]

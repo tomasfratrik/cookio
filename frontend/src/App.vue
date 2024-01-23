@@ -13,23 +13,39 @@
         <div v-if="groups_toggle" class="groups">
           <div class="group add-group" >
             <div class="add-group-add" v-if="add_group_toggle">
-              <p>adding group</p>
+              <input type="text" v-model="new_group_name" placeholder="Group name">
               <font-awesome-icon class="x" :icon="['fas', 'fa-x']" @click="add_group_toggle = false" />
               <font-awesome-icon class="check" :icon="['fas', 'fa-check']" @click="handleAddGroup" />
-              <input type="text" v-model="new_group_name" placeholder="Group name">
             </div>
             <div class="add-group-default" v-else @click="add_group_toggle = true">
               <font-awesome-icon class="plus" :icon="['fas', 'fa-plus']"/>
               <p>Add group</p>
             </div>
           </div>
+
+
           <div class="group" v-for="group in groups" :key="group.name">
-            <p>{{ group.name }}</p>
-            <!-- <router-link :to="{ name: 'GroupDetail', params: { id: group.id } }">
-              <p>{{ group.name }}</p>
-            </router-link> -->
+            <div class="group-main">
+              <font-awesome-icon class="i-gear" :icon="['fas', 'fa-gear']" @click="toggleSettings(group)"/>
+              <div v-if="rename_list[group.name].show">
+                <input type="text" v-model="rename_list[group.name].rename_name" :placeholder="group.name">
+              </div>
+              <p v-else>{{ group.name }}</p>
+            </div>
+            <div class="group-settings" v-if="show_settings[group.name]">
+              <div v-if="rename_list[group.name].show" class="settings-approve">
+                <font-awesome-icon class="x" :icon="['fas', 'fa-x']" @click="toggleSettings(group)" />
+                <font-awesome-icon class="check" :icon="['fas', 'fa-check']" @click="handleRenameGroup(group)" />
+              </div>
+              <div class="settings-tools" v-else>
+                <font-awesome-icon class="i-trash" :icon="['fas', 'fa-trash']" @click="handleDeleteGroup(group)"/>
+                <font-awesome-icon class="i-pen" :icon="['fas', 'fa-pen']" @click="toggleRename(group)"/>
+                <font-awesome-icon class="i-palette" :icon="['fas', 'fa-palette']" />
+              </div>
+            </div>
           </div>
         </div>
+
         <button class="btn-arrow arrow-left" @click="goBack">
           <font-awesome-icon :icon="['fas', 'arrow-left']"/>
         </button>
@@ -56,6 +72,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import getGroups from '@/composables/getGroups';
 import addGroup from '@/composables/addGroup';
+import deleteGroup from '@/composables/deleteGroup';
+import updateGroup from '@/composables/updateGroup';
 import Alert from '@/components/Alert.vue'
 
 library.add(fas);
@@ -71,11 +89,22 @@ export default {
       add_group_toggle: false,
       groups: [],
       new_group_name: '',
+      show_settings: {},
+      rename_list: [],
+      rename_group_toggle: false,
     }
   },
   methods: {
     alert(type, message) {
         this.$refs.alertBox.showAlert(type, message)
+    },
+    updateRenameList() {
+      for (let i = 0; i < this.groups.length; i++) {
+        this.rename_list[this.groups[i].name] = {
+          show: false,
+          rename_name: ''
+        }
+      }
     },
 
     handleAddGroup(){
@@ -84,19 +113,95 @@ export default {
         this.alert('error', 'Group name cannot be empty!')
         return
       }
-      if(this.groups.some(group => group.name.toUpperCase() == this.new_group_name.toUpperCase())){
-        this.alert('error', 'Group with this name already exists!')
-        return
-      }
       addGroup(this.new_group_name)
         .then((response) => {
-          getGroups()
-            .then((data) => {
-              this.groups = data
-            })
-          this.alert('success', 'Group added!')
+          if(response == 'error') {
+            this.alert('error', 'Group name already exists!')
+          }
+          else {
+            getGroups()
+              .then((data) => {
+                this.groups = data
+                this.updateRenameList()
+              })
+            this.new_group_name = ''
+            this.alert('success', 'Group added!')
+          }
       })
     },
+
+    handleDeleteGroup(group) {
+      deleteGroup(group.name)
+        .then(() => {
+          getGroups()
+            .then((data) => {
+              delete this.show_settings[group.name]
+              delete this.rename_list[group.name]
+              this.groups = data
+              this.updateRenameList()
+            })
+          this.alert('success', 'Group deleted!')
+        })
+    },
+
+    handleRenameGroup(group) {
+      if(this.rename_list[group.name].rename_name == '') {
+        this.alert('error', 'Group name cannot be empty!')
+        return
+      }
+      updateGroup(group, this.rename_list[group.name])
+        .then((response) => {
+          if(response == 'error') {
+            this.alert('error', 'Group name already exists!')
+          }
+          else {
+            getGroups()
+              .then((data) => {
+                this.groups = data
+                this.updateRenameList()
+              })
+            // delete this.rename_list[group.name]
+            this.alert('success', 'Group renamed!')
+            this.toggleSettings(group)
+          }
+        })
+    },
+
+    toggleSettings(group) {
+      if(this.show_settings[group.name] == undefined) {
+        this.show_settings[group.name] = true
+        for (let key in this.show_settings) {
+          if (key != group.name) {
+            this.show_settings[key] = false
+          }
+        }
+      }
+      else {
+        for (let key in this.show_settings) {
+          if (key != group.name) {
+            this.show_settings[key] = false
+          }
+        }
+        this.show_settings[group.name] = !this.show_settings[group.name]
+        if (this.show_settings[group.name] == false) {
+          this.rename_list[group.name].show = false
+        }
+      }
+    },
+
+    toggleRename(group) {
+      if(this.rename_list[group.name] == undefined) {
+        this.rename_list[group.name] = {
+          show: true,
+          rename_name: ''
+        }; 
+      }
+      else {
+        this.rename_list[group.name].show = !this.rename_list[group.name].show
+        this.rename_list[group.name].rename_name = ''
+      }
+    },
+
     // go back and forward in history
     goBack() {
       this.$router.go(-1);
@@ -110,12 +215,84 @@ export default {
     getGroups()
       .then((data) => {
         this.groups = data
+        // init rename_list
+        for (let i = 0; i < this.groups.length; i++) {
+          this.rename_list[this.groups[i].name] = {
+            show: false,
+            rename_name: ''
+          }
+        }
       })
   },
 }
 </script>
 
 <style scoped>
+
+.group {
+  /* display: flex;
+  flex-direction: column; */
+  min-height: 50px;
+  cursor: default;
+  padding: 10px;
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* gap: 10px; */
+}
+
+.group-settings{
+  width: 100%;
+  height: 30px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: 5px;
+}
+.group-settings .settings-tools, .group-settings .settings-approve {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+
+.i-trash, .i-pen, .i-palette {
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.i-pen:hover, .i-palette:hover {
+  color: var(--secondary-color);
+}
+
+.i-trash:hover {
+  color: rgb(218, 69, 69);
+}
+.group-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+  min-height: 50px;
+}
+
+.group p{
+  width: 200px;
+  text-align: center;
+  cursor: default;
+}
+
+
+.i-gear {
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.i-gear:hover {
+  color: var(--primary-color);
+}
 
 .add-group {
   background-color: var(--primary-color);
@@ -135,14 +312,17 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
   position: absolute;
   top: 50px;
   left: calc(50% - 350px );
-  width: 200px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+  /* make it scrollable */
+  max-height: 400px;
+  overflow-y: scroll;
+
 }
 
 body {
