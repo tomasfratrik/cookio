@@ -6,12 +6,14 @@
     <Alert ref="alertBox"></Alert>
     <nav>
       <div class="nav-content">
-        <button class="btn-groups"  @click="groups_toggle = !groups_toggle">
+        <button class="btn-groups"  @click="handleDropdownToggle">
           Groups
           <font-awesome-icon class="dropdown" :class="{ rotate: groups_toggle, rotateback: !groups_toggle  }" :icon="['fas', 'fa-caret-up']"/>
         </button>
+
+
         <div v-if="groups_toggle" class="groups">
-          <div class="group add-group" >
+          <div class="group add-group" @mouseenter="hideInstances">
             <div class="add-group-add" v-if="add_group_toggle">
               <input type="text" v-model="new_group_name" placeholder="Group name">
               <font-awesome-icon class="x" :icon="['fas', 'fa-x']" @click="add_group_toggle = false" />
@@ -24,7 +26,7 @@
           </div>
 
 
-          <div class="group" v-for="group in groups" :key="group.name">
+          <div class="group" v-for="group in groups" :key="group.name" @mouseenter="showInstances(group)">
             <div class="group-main">
               <font-awesome-icon class="i-gear" :icon="['fas', 'fa-gear']" @click="toggleSettings(group)"/>
               <div v-if="rename_list[group.name].show">
@@ -43,8 +45,28 @@
                 <font-awesome-icon class="i-palette" :icon="['fas', 'fa-palette']" />
               </div>
             </div>
+            <!-- show instances -->
+
+          </div>
+
+
+        </div>
+        <!-- END GROUPS -->
+
+        <div class="all-instances" :class="{ displaynone: display_none }">
+          <div class="add-instance">
+              <font-awesome-icon class="plus" :icon="['fas', 'fa-plus']"/>
+              <p>Add Instance</p>
+          </div>
+          <div v-for="group in groups" :key="group.name" class="group-instances">
+            <div v-if="show_instances[group.name]" class="instances">
+              <div v-for="instance in group.instances" :key="instance.name">
+                <p>{{ instance.name }}</p>
+              </div>
+            </div>
           </div>
         </div>
+
 
         <button class="btn-arrow arrow-left" @click="goBack">
           <font-awesome-icon :icon="['fas', 'arrow-left']"/>
@@ -90,20 +112,46 @@ export default {
       groups: [],
       new_group_name: '',
       show_settings: {},
+      show_instances: {},
       rename_list: [],
       rename_group_toggle: false,
+      display_none:  true,
     }
   },
   methods: {
     alert(type, message) {
         this.$refs.alertBox.showAlert(type, message)
     },
+
+    showInstances(group) {
+      this.display_none = false
+      // hide other instances, show only that groups
+      for (let key in this.show_instances) {
+        if (key != group.name) {
+          this.show_instances[key] = false
+        }
+      }
+      this.show_instances[group.name] = !this.show_instances[group.name] 
+    },
+    hideInstances() {
+      this.display_none = true
+      for (let key in this.show_instances) {
+        this.show_instances[key] = false
+      }
+    },
+
     updateRenameList() {
       for (let i = 0; i < this.groups.length; i++) {
         this.rename_list[this.groups[i].name] = {
           show: false,
           rename_name: ''
         }
+      }
+    },
+
+    updateShowInstancesList() {
+      for (let i = 0; i < this.groups.length; i++) {
+        this.show_instances[this.groups[i].name] = false
       }
     },
 
@@ -137,6 +185,7 @@ export default {
             .then((data) => {
               delete this.show_settings[group.name]
               delete this.rename_list[group.name]
+              delete this.show_instances[group.name]
               this.groups = data
               this.updateRenameList()
             })
@@ -202,6 +251,11 @@ export default {
       }
     },
 
+    handleDropdownToggle() {
+      this.groups_toggle = !this.groups_toggle
+      this.display_none = true
+    },
+
     // go back and forward in history
     goBack() {
       this.$router.go(-1);
@@ -222,6 +276,9 @@ export default {
             rename_name: ''
           }
         }
+        for (let i = 0; i < this.groups.length; i++) {
+          this.show_instances[this.groups[i].name] = false
+        }
       })
   },
 }
@@ -229,6 +286,42 @@ export default {
 
 <style scoped>
 
+.displaynone {
+  display: none;
+}
+
+.add-instance {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .2s ease;
+}
+
+.add-instance:hover {
+  background-color: var(--secondary-color);
+}
+
+.add-instance p {
+  color: white;
+}
+
+.all-instances {
+  position: absolute;
+  top: 50px;
+  left: calc(50% - 130px );
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 260px;
+  max-height: 500px;
+  overflow-y: scroll;
+  z-index: 1;
+}
 .group {
   /* display: flex;
   flex-direction: column; */
@@ -238,6 +331,14 @@ export default {
   /* justify-content: center; */
   /* align-items: center; */
   /* gap: 10px; */
+}
+
+.group:hover {
+  background-color: rgb(240, 240, 240);
+}
+
+.add-group:hover {
+  background-color: var(--secondary-color);
 }
 
 .group-settings{
@@ -303,6 +404,7 @@ export default {
   text-align: center;
   cursor: pointer;
   border-radius: 2px;
+  transition: all .2s ease;
 }
 
 .add-group p {
@@ -312,9 +414,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
+  /* position: absolute; */
+  position:relative;
   top: 50px;
   left: calc(50% - 350px );
+  left: -250px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
