@@ -1,5 +1,5 @@
 <!-- ITU project 
-  -- AUTHOR: xsynek04
+  -- AUTHOR: xfratr01
 -->
 <template>
     <div class="backdrop" ref="popup" @click.self="closeModal">
@@ -22,15 +22,16 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .modal {
-    width: 400px;
+    width: 900px;
     padding: 20px;
-    margin: 100px auto;
+    margin: 50px auto;
     background: white;
     border-radius: 10px;
     position: fixed;
-    left: 33%;
+    left: calc(50% - 450px);
+
 }
 
 .backdrop {
@@ -40,5 +41,6 @@ export default {
     width: 120%;
     height: 120%;
     background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
 }
 </style>

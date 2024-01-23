@@ -244,6 +244,44 @@ def group(_name):
         else:
             return jsonify('error')
 
+@app.route('/groups/<_name>/meals', methods=['GET', 'POST', 'DELETE', 'PUT'])
+def group_meals(_name):
+    groups_db = utils.get_all_groups()
+    db = utils.load_json_file('db.json')
+    if request.method == 'PUT':
+        data = request.get_json()
+        group_name = _name
+        meal_ids = data['meals']
+        print(f"meal ids: {meal_ids}")
+
+        # for group in groups_db:
+        #     if group['name'] == group_name:
+        #         # find those instaces
+        #         # append id and name
+        #         # dont reset, just append
+        #         group['instances'] = []
+        group = utils.get_group_by_name(group_name)
+        for recipe in db:
+            for instance in recipe['instances']:
+                if instance['id'] in meal_ids:
+                    group = utils.get_group_by_name(group_name)
+                    # if it is alreay in the group, dont add it
+                    exists = False
+                    for sub_instance in group['instances']:
+                        if sub_instance['id'] == instance['id']:
+                            exists = True
+                            break    
+                    if exists:
+                        continue
+
+                    sub_instance = { 'id': instance['id'], 'name': instance['name'] }
+                    utils.add_meal_to_group(group_name, sub_instance)
+                    group['instances'].append(sub_instance)
+
+
+        return jsonify('success')
+
+
 # @app.route('/group/<_name>/add/<_instance>', methods=['GET', 'POST'])
 # def add_instance_to_group(_name, _instance):
 #     if request.method == 'POST':

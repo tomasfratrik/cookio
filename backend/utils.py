@@ -77,5 +77,14 @@ def group_rename(name: str, new_name: str):
             return group
     return None
 
+def add_meal_to_group(group_name: str, meal: str):
+    groups_db = load_json_file('groups.json')
+    for group in groups_db:
+        if group['name'].upper() == group_name.upper():
+            group['instances'].append(meal)
+            write_json_file('groups.json', groups_db)
+            return group
+    return None
+
 
 

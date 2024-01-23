@@ -54,9 +54,9 @@
         <!-- END GROUPS -->
 
         <div class="all-instances" :class="{ displaynone: display_none }">
-          <div class="add-instance">
+          <div class="add-instance" @click="showAddInstancesModal">
               <font-awesome-icon class="plus" :icon="['fas', 'fa-plus']"/>
-              <p>Add Instance</p>
+              <p>Add meals</p>
           </div>
           <div v-for="group in groups" :key="group.name" class="group-instances">
             <div v-if="show_instances[group.name]" class="instances">
@@ -66,6 +66,59 @@
             </div>
           </div>
         </div>
+
+        <!-- MODAL -->
+        <div v-if="show_modal">
+          <BigModal ref="modal" @close="handleModalToggle">
+            <div class="intoColumn">
+
+              <h1>Add to {{ selected_group }}</h1>
+              <input class="search" type="text" v-model="search" placeholder="Search">
+
+              <div class="selection-boxes">
+
+                <div class="left">
+                  <div class="box">
+                    <div class="recipe" v-for="recipe in filteredRecipes" :key="recipe.id" @click="showMeals(recipe)">
+                        <h2>{{ recipe.class_name }}</h2>
+                        <!-- <button @click="classInstances(recipe)">Meals</button>
+                        <button @click="classDetail(recipe)">Detail</button>
+                        <button class="btn-delete" @click="_deleteClass(recipe)">Delete</button> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="center">
+
+                </div>
+                <div class="right">
+                  <div class="box">
+
+                    <!-- show all meals -->
+                    <div v-for="recipe in recipes" :key="recipe.id">
+                     <div v-for="instance in recipe.instances" :key="instance.id" >
+                      <div class="meal recipe" :class="{ selected: selected_meals[instance.id].isSelected}" v-if="show_meals[instance.id]" @click="toggleSelectMeal(instance)">
+                        <p>{{ instance.name }}</p>
+                      </div>
+                      </div> 
+                    </div> 
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="howmany">
+                <p>You have selected ..</p>
+              </div>
+              <div class="buttons">
+                <button class="btn btn-primary" @click="handleModalToggle">Cancel</button>
+                <button class="btn btn-primary" @click="handleAddInstances">Add</button>
+              </div>
+
+            </div>
+          </BigModal>
+        </div>
+        <!-- END MODAL -->
 
 
         <button class="btn-arrow arrow-left" @click="goBack">
@@ -97,6 +150,9 @@ import addGroup from '@/composables/addGroup';
 import deleteGroup from '@/composables/deleteGroup';
 import updateGroup from '@/composables/updateGroup';
 import Alert from '@/components/Alert.vue'
+import BigModal from '@/components/BigModal.vue'
+import getRecipes from '@/composables/getRecipes';
+import addMealsToGroup from '@/composables/addMealsToGroup';
 
 library.add(fas);
 
@@ -104,6 +160,7 @@ export default {
   components: {
     FontAwesomeIcon,
     Alert,
+    BigModal,
   },
   data() {
     return {
@@ -116,11 +173,63 @@ export default {
       rename_list: [],
       rename_group_toggle: false,
       display_none:  true,
+      show_modal: false,
+      selected_group: '',
+      recipes: [],
+      selected_meals: [],
+      selected_meals_ids: [],
+      show_meals: {},
+      search: '',
     }
   },
   methods: {
     alert(type, message) {
         this.$refs.alertBox.showAlert(type, message)
+    },
+    handleAddInstances() {
+      for (let key in this.selected_meals) {
+        if (this.selected_meals[key].isSelected == true) {
+          this.selected_meals_ids.push(this.selected_meals[key].id)
+        }
+      }
+
+      addMealsToGroup(this.selected_group, this.selected_meals_ids)
+        .then(() => {
+          this.alert('success', 'Meals added!')
+          this.handleModalToggle()
+          this.selected_meals_ids = []
+        })
+      this.selected_meals_ids = []
+    },
+
+    showAddInstancesModal() {
+      this.show_modal = true
+      this.selected_meals = []
+      getRecipes()
+        .then((data) => {
+          this.recipes = data
+        // put name, id, and isSelected into selected_meals of instances of recipes
+          for (let i = 0; i < this.recipes.length; i++) {
+            for (let j = 0; j < this.recipes[i].instances.length; j++) {
+              this.selected_meals[this.recipes[i].instances[j].id] = {
+                name: this.recipes[i].instances[j].name,
+                id: this.recipes[i].instances[j].id,
+                isSelected: false
+              }
+              this.show_meals[this.recipes[i].instances[j].id] = false
+            }
+          }
+        })
+
+    },
+
+    showMeals(recipe) {
+      for (let key in this.show_meals) {
+        this.show_meals[key] = false
+      }
+      for (let i = 0; i < recipe.instances.length; i++) {
+        this.show_meals[recipe.instances[i].id] = true
+      }
     },
 
     showInstances(group) {
@@ -132,6 +241,7 @@ export default {
         }
       }
       this.show_instances[group.name] = !this.show_instances[group.name] 
+      this.selected_group = group.name
     },
     hideInstances() {
       this.display_none = true
@@ -216,6 +326,14 @@ export default {
         })
     },
 
+    handleModalToggle() {
+      this.show_modal = !this.show_modal
+      if(this.show_modal == false) {
+        this.selected_meals = []
+      }
+      this.show_meals = {}
+    },
+
     toggleSettings(group) {
       if(this.show_settings[group.name] == undefined) {
         this.show_settings[group.name] = true
@@ -236,6 +354,10 @@ export default {
           this.rename_list[group.name].show = false
         }
       }
+    },
+
+    toggleSelectMeal(instance) {
+      this.selected_meals[instance.id].isSelected = !this.selected_meals[instance.id].isSelected
     },
 
     toggleRename(group) {
@@ -279,12 +401,70 @@ export default {
         for (let i = 0; i < this.groups.length; i++) {
           this.show_instances[this.groups[i].name] = false
         }
+        for (let i = 0; i < this.recipes.length; i++) {
+          for (let j = 0; j < this.recipes[i].instances.length; j++) {
+            this.selected_meals[this.recipes[i].instances[j].id] = {
+              name: this.recipes[i].instances[j].name,
+              id: this.recipes[i].instances[j].id,
+              isSelected: false
+            }
+            this.show_meals[this.recipes[i].instances[j].id] = false
+          }
+        }
+
       })
   },
+  computed: {
+    // filter instaces
+    filteredInstances() {
+      return this.pinned_instances.filter(item => item.name.includes(this.search));
+    },
+    // filter recipes
+    filteredRecipes() {
+      return this.recipes.filter(item => item.class_name.includes(this.search));
+    }
+
+  }
 }
 </script>
 
 <style scoped>
+
+
+.meal {
+  background-color: rgb(131, 235, 161);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .2s ease;
+}
+
+.meal p {
+  color: white;
+}
+
+.selected {
+  background-color: rgb(7, 121, 39);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .2s ease;
+}
+.selection-boxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+}
 
 .displaynone {
   display: none;
@@ -312,7 +492,7 @@ export default {
 
 .all-instances {
   position: absolute;
-  top: 50px;
+  top: 53px;
   left: calc(50% - 130px );
   background-color: white;
   border-radius: 10px;
