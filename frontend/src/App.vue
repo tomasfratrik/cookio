@@ -53,6 +53,7 @@
         </div>
         <!-- END GROUPS -->
 
+        <!-- INSTANCES OF GROUPS -->
         <div class="all-instances" :class="{ displaynone: display_none }">
           <div class="add-instance" @click="showAddInstancesModal">
               <font-awesome-icon class="plus" :icon="['fas', 'fa-plus']"/>
@@ -60,12 +61,14 @@
           </div>
           <div v-for="group in groups" :key="group.name" class="group-instances">
             <div v-if="show_instances[group.name]" class="instances">
-              <div v-for="instance in group.instances" :key="instance.name">
-                <p>{{ instance.name }}</p>
+              <div class="group-instance" v-for="instance in group.instances" :key="instance.name" @click="goToInstance(instance)">
+                <font-awesome-icon class="i-trash" :icon="['fas', 'fa-trash']"/>
+                <p class="group-instance-name">{{ instance.name }}</p>
               </div>
             </div>
           </div>
         </div>
+        <!-- END INSTANCES OF GROUPS -->
 
         <!-- MODAL -->
         <div v-if="show_modal">
@@ -186,6 +189,12 @@ export default {
     alert(type, message) {
         this.$refs.alertBox.showAlert(type, message)
     },
+    
+    goToInstance(instance) {
+      this.$router.push({ name: 'InstanceDetail', params: { id: instance.id } })
+      this.handleDropdownToggle()
+    },
+
     handleAddInstances() {
       for (let key in this.selected_meals) {
         if (this.selected_meals[key].isSelected == true) {
@@ -429,6 +438,43 @@ export default {
 </script>
 
 <style scoped>
+
+.group-instance-name {
+  width: 100%;
+  text-align: center;
+  cursor: default;
+}
+
+.group-instance .i-trash {
+  color: grey;
+}
+.group-instance .i-trash:hover {
+  color: rgb(218, 69, 69);
+}
+
+
+
+.group-instance {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 10px;
+  min-height: 30px;
+  cursor: default;
+  padding: 5px;
+  border-radius: 2px;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.group-instance p {
+  cursor: pointer;
+}
+
+.group-instance:hover {
+  background-color: rgb(131, 235, 161);
+}
 
 
 .meal {

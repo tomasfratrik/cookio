@@ -321,6 +321,8 @@ export default {
             .then((data) => {
                 this.instance = data
                 this.ingredients = this.instance.ingredients
+                // log name of instance
+                console.log(this.instance.name)
             })
     },
     computed: {
@@ -329,7 +331,34 @@ export default {
             if (this.ingredientName !== '')
                 return this.unique_ingredients.filter(item => item.toLowerCase().includes(this.ingredientName.toLowerCase()))
         },
-  },
+    },
+    watch: {
+        $route(to, from) {
+        // Check if the route parameter has changed
+            if (to.params.id !== from.params.id) {
+                // Update the instanceId and fetch data
+                // this.instanceId = to.params.id;
+                getInstance(this.$route.params.id)
+                    .then((data) => {
+                        this.instance = data
+                        this.ingredients = this.instance.ingredients
+                        // log name of instance
+                        console.log(this.instance.name)
+                    });
+            }
+        },
+    },
+    beforeRouteUpdate(to, from, next) {
+        getInstance(this.$route.params.id)
+            .then((data) => {
+                this.instance = data
+                this.ingredients = this.instance.ingredients
+                // log name of instance
+                console.log(this.instance.name)
+            });
+        // Call fetchData directly if the route is updated without leaving the component
+        next();
+    },
 }
 
 </script>
