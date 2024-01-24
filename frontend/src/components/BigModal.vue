@@ -26,7 +26,7 @@ export default {
 .modal {
     width: 900px;
     padding: 20px;
-    margin: 50px auto;
+    margin: 10px auto;
     background: white;
     border-radius: 10px;
     position: fixed;

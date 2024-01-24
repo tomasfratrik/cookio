@@ -366,6 +366,7 @@ export default {
 <style scoped>
 
 
+
 .headr{
     max-width: 500px;
     margin: 0 auto;

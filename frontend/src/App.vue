@@ -13,21 +13,25 @@
 
 
         <div v-if="groups_toggle" class="groups">
-          <div class="group add-group" @mouseenter="hideInstances">
-            <div class="add-group-add" v-if="add_group_toggle">
-              <input type="text" v-model="new_group_name" placeholder="Group name">
-              <font-awesome-icon class="x" :icon="['fas', 'fa-x']" @click="add_group_toggle = false" />
-              <font-awesome-icon class="check" :icon="['fas', 'fa-check']" @click="handleAddGroup" />
+          <!-- <div class="group add-group" @mouseenter="hideInstances"> -->
+            <div class="add-group-add" v-if="add_group_toggle" @mouseenter="hideInstances">
+              <div class="up">
+                <input type="text" v-model="new_group_name" placeholder="Group name">
+              </div>
+              <div class="down">
+                <font-awesome-icon class="x" :icon="['fas', 'fa-x']" @click="add_group_toggle = false" />
+                <font-awesome-icon class="check" :icon="['fas', 'fa-check']" @click="handleAddGroup" />
+              </div>
             </div>
-            <div class="add-group-default" v-else @click="add_group_toggle = true">
-              <font-awesome-icon class="plus" :icon="['fas', 'fa-plus']"/>
-              <p>Add group</p>
+            <div class="add-group-default" v-else @click="add_group_toggle = true" @mouseenter="hideInstances">
+              <p> <font-awesome-icon class="plus" :icon="['fas', 'fa-plus']"/> Add group</p>
             </div>
-          </div>
+          <!-- </div> -->
 
 
-          <div class="group" v-for="group in groups" :key="group.name" @mouseenter="showInstances(group)">
+          <div class="group" v-for="group in groups" :key="group.name" @mouseenter="showInstances(group)" >
             <div class="group-main">
+              <!-- <font-awesome-icon class="i-gear" :style="{ color : group.color }" :icon="['fas', 'fa-gear']" @click="toggleSettings(group)"/> -->
               <font-awesome-icon class="i-gear" :icon="['fas', 'fa-gear']" @click="toggleSettings(group)"/>
               <div v-if="rename_list[group.name].show">
                 <input type="text" v-model="rename_list[group.name].rename_name" :placeholder="group.name">
@@ -42,7 +46,12 @@
               <div class="settings-tools" v-else>
                 <font-awesome-icon class="i-trash" :icon="['fas', 'fa-trash']" @click="handleDeleteGroup(group)"/>
                 <font-awesome-icon class="i-pen" :icon="['fas', 'fa-pen']" @click="toggleRename(group)"/>
-                <font-awesome-icon class="i-palette" :icon="['fas', 'fa-palette']" />
+                <!-- <font-awesome-icon class="i-palette" :icon="['fas', 'fa-palette']" />
+                <select v-model="group.color" name="colorSelect">
+                  <option value="grey">Grey</option>
+                  <option value="red">Red</option>
+                  <option value="blue">Blue</option>
+                </select> -->
               </div>
             </div>
             <!-- show instances -->
@@ -56,14 +65,15 @@
         <!-- INSTANCES OF GROUPS -->
         <div class="all-instances" :class="{ displaynone: display_none }">
           <div class="add-instance" @click="showAddInstancesModal">
-              <font-awesome-icon class="plus" :icon="['fas', 'fa-plus']"/>
-              <p>Add meals</p>
+              <p>{{ selected_group }}</p>
+              <p><font-awesome-icon class="plus" :icon="['fas', 'fa-plus']"/>Add meals</p>
+              
           </div>
           <div v-for="group in groups" :key="group.name" class="group-instances">
             <div v-if="show_instances[group.name]" class="instances">
-              <div class="group-instance" v-for="instance in group.instances" :key="instance.name" @click="goToInstance(instance)">
-                <font-awesome-icon class="i-trash" :icon="['fas', 'fa-trash']"/>
-                <p class="group-instance-name">{{ instance.name }}</p>
+              <div class="group-instance" v-for="instance in group.instances" :key="instance.name" >
+                <font-awesome-icon class="i-trash" :icon="['fas', 'fa-trash']" @click="removeInstaceFromGroup(instance)"/>
+                <p @click="goToInstance(instance)" class="group-instance-name">{{ instance.name }}</p>
               </div>
             </div>
           </div>
@@ -75,14 +85,15 @@
           <BigModal ref="modal" @close="handleModalToggle">
             <div class="intoColumn">
 
-              <h1>Add to {{ selected_group }}</h1>
-              <input class="search" type="text" v-model="search" placeholder="Search">
+              <h1 class="header">Add to {{ selected_group }}</h1>
+              <!-- <input class="search" type="text" v-model="search" placeholder="Search"> -->
 
               <div class="selection-boxes">
 
                 <div class="left">
+                  <h2>Recipes</h2>
                   <div class="box">
-                    <div class="recipe" v-for="recipe in filteredRecipes" :key="recipe.id" @click="showMeals(recipe)">
+                    <div class="recipe" v-for="recipe in recipes" :key="recipe.id" @click="showMeals(recipe)">
                         <h2>{{ recipe.class_name }}</h2>
                         <!-- <button @click="classInstances(recipe)">Meals</button>
                         <button @click="classDetail(recipe)">Detail</button>
@@ -91,9 +102,10 @@
                   </div>
                 </div>
                 <div class="center">
-
+                  <font-awesome-icon class="big-arrow" :icon="['fas', 'fa-arrow-right']"/>
                 </div>
                 <div class="right">
+                  <h2>Meals</h2>
                   <div class="box">
 
                     <!-- show all meals -->
@@ -111,11 +123,11 @@
               </div>
 
               <div class="howmany">
-                <p>You have selected ..</p>
+                <p>You have selected {{ selected_count }} meals</p>
               </div>
               <div class="buttons">
-                <button class="btn btn-primary" @click="handleModalToggle">Cancel</button>
-                <button class="btn btn-primary" @click="handleAddInstances">Add</button>
+                <button class="btn btn-cancel" @click="handleModalToggle">Cancel</button>
+                <button class="btn btn-add" :disabled="isDisabled" :class="{ disabled: !selected_count }" @click="handleAddInstances">Add</button>
               </div>
 
             </div>
@@ -156,6 +168,7 @@ import Alert from '@/components/Alert.vue'
 import BigModal from '@/components/BigModal.vue'
 import getRecipes from '@/composables/getRecipes';
 import addMealsToGroup from '@/composables/addMealsToGroup';
+import deleteInstanceFromGroup from '@/composables/deleteInstanceFromGroup';
 
 library.add(fas);
 
@@ -183,12 +196,31 @@ export default {
       selected_meals_ids: [],
       show_meals: {},
       search: '',
+      selected_count: 0,
     }
   },
   methods: {
     alert(type, message) {
         this.$refs.alertBox.showAlert(type, message)
     },
+    updateGroups() {
+      getGroups()
+        .then((data) => {
+          this.groups = data
+        })
+    },
+
+    removeInstaceFromGroup(instance) {
+      // pass groupn name and instance id
+      deleteInstanceFromGroup(this.selected_group, instance.id)
+        .then(() => {
+          // reload
+          this.updateGroups()
+          this.alert('success', 'Meal removed!')
+          // this.handleDropdownToggle()
+        })
+    },
+
     
     goToInstance(instance) {
       this.$router.push({ name: 'InstanceDetail', params: { id: instance.id } })
@@ -207,6 +239,7 @@ export default {
           this.alert('success', 'Meals added!')
           this.handleModalToggle()
           this.selected_meals_ids = []
+          this.updateGroups()
         })
       this.selected_meals_ids = []
     },
@@ -249,7 +282,8 @@ export default {
           this.show_instances[key] = false
         }
       }
-      this.show_instances[group.name] = !this.show_instances[group.name] 
+      // this.show_instances[group.name] = !this.show_instances[group.name] 
+      this.show_instances[group.name] = true; 
       this.selected_group = group.name
     },
     hideInstances() {
@@ -341,6 +375,7 @@ export default {
         this.selected_meals = []
       }
       this.show_meals = {}
+      this.selected_count = 0
     },
 
     toggleSettings(group) {
@@ -367,6 +402,12 @@ export default {
 
     toggleSelectMeal(instance) {
       this.selected_meals[instance.id].isSelected = !this.selected_meals[instance.id].isSelected
+      if (this.selected_meals[instance.id].isSelected == true) {
+        this.selected_count++
+      }
+      else {
+        this.selected_count--
+      }
     },
 
     toggleRename(group) {
@@ -424,13 +465,11 @@ export default {
       })
   },
   computed: {
-    // filter instaces
-    filteredInstances() {
-      return this.pinned_instances.filter(item => item.name.includes(this.search));
-    },
-    // filter recipes
     filteredRecipes() {
       return this.recipes.filter(item => item.class_name.includes(this.search));
+    },
+    idDisabled() {
+      return this.selected_count == 0
     }
 
   }
@@ -438,6 +477,83 @@ export default {
 </script>
 
 <style scoped>
+
+.recipe {
+  cursor: pointer;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+  background-color: grey;
+}
+
+.modal .btn-cancel {
+  background-color: rgb(218, 69, 69);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all .2s ease;
+  height: 40px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.modal .btn-add {
+  background-color: var(--primary-color);
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100px;
+  height: 40px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all .2s ease;
+}
+
+.modal .btn-add:hover {
+  background-color: var(--secondary-color);
+}
+
+.modal .btn-cancel:hover {
+  background-color: rgb(255, 0, 0);
+}
+
+.modal .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal .big-arrow {
+  font-size: 100px;
+  color: var(--primary-color);
+}
+
+.modal .intoColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal .search {
+  width: 400px;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 5px;
+}
+
 
 .group-instance-name {
   width: 100%;
@@ -447,6 +563,7 @@ export default {
 
 .group-instance .i-trash {
   color: grey;
+  z-index: 1;
 }
 .group-instance .i-trash:hover {
   color: rgb(218, 69, 69);
@@ -478,7 +595,8 @@ export default {
 
 
 .meal {
-  background-color: rgb(131, 235, 161);
+  /* background-color: rgb(131, 235, 161); */
+  background-color: rgb(122, 130, 124);
   color: white;
   border-radius: 10px;
   padding: 5px;
@@ -526,6 +644,7 @@ export default {
   cursor: pointer;
   border-radius: 2px;
   transition: all .2s ease;
+  font-weight: bold;
 }
 
 .add-instance:hover {
@@ -549,14 +668,14 @@ export default {
   z-index: 1;
 }
 .group {
-  /* display: flex;
-  flex-direction: column; */
-  min-height: 50px;
+  /* min-height: 50px; */
   cursor: default;
   padding: 10px;
-  /* justify-content: center; */
-  /* align-items: center; */
-  /* gap: 10px; */
+  /* overflow: hidden; */
+  /* overflow: scroll; */
+  height: auto;
+  /* height: 100px; */
+   
 }
 
 .group:hover {
@@ -584,6 +703,20 @@ export default {
   align-items: center;
 }
 
+.group-settings .settings-approve .x, .group-settings .settings-approve .check {
+  transition: all .2s ease;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.group-settings .settings-approve .x:hover{
+  color: rgb(218, 69, 69);
+}
+
+.group-settings .settings-approve .check:hover{
+  color: var(--secondary-color);
+}
+
 
 .i-trash, .i-pen, .i-palette {
   transition: all .2s ease;
@@ -602,7 +735,8 @@ export default {
   align-items: center;
   justify-content: space-between;
   width: 200px;
-  min-height: 50px;
+  /* min-height: 30px; */
+  /* height: 30px; */
 }
 
 .group p{
@@ -614,6 +748,7 @@ export default {
 
 .i-gear {
   transition: all .2s ease;
+  color: rgb(109, 109, 109);
   cursor: pointer;
 }
 
@@ -621,7 +756,9 @@ export default {
   color: var(--primary-color);
 }
 
-.add-group {
+
+
+.add-group-add {
   background-color: var(--primary-color);
   color: white;
   border-radius: 10px;
@@ -633,6 +770,66 @@ export default {
   transition: all .2s ease;
 }
 
+.add-group-add input {
+  width: 100%;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.add-group-add .down {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  transition: all .2s ease;
+}
+
+.add-group-add .down .x, .add-group-add .down .check {
+  transition: all .2s ease;
+  cursor: pointer;
+  padding: 5px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.add-group-add .down .x:hover{ 
+  color: rgb(218, 69, 69);
+}
+
+.add-group-add .down .check:hover{ 
+  color: var(--secondary-color);
+}
+
+.add-group-default {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 10px;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all .2s ease;
+}
+.add-group-default {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.add-group-default p{
+  cursor: pointer;
+  color: white;
+}
+
+.add-group-default:hover {
+  background-color: var(--secondary-color);
+}
+
+
 .add-group p {
   color: white;
 }
@@ -641,6 +838,9 @@ export default {
   flex-direction: column;
   align-items: center;
   /* position: absolute; */
+  /* justify-content: center; */
+  /* flex-wrap: wrap; */
+   
   position:relative;
   top: 50px;
   left: calc(50% - 350px );
@@ -652,6 +852,7 @@ export default {
   /* make it scrollable */
   max-height: 400px;
   overflow-y: scroll;
+
 
 }
 

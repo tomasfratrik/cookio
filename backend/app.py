@@ -198,6 +198,7 @@ def groups():
             return jsonify('error')
         group = {}
         group['name'] = group_name
+        group['color'] = 'grey'
         group['instances'] = []
         groups_db.append(group)
         utils.write_json_file('groups.json', groups_db)
@@ -280,6 +281,27 @@ def group_meals(_name):
 
 
         return jsonify('success')
+
+@app.route('/groups/<_name>/meals/<_id>', methods=['GET', 'POST', 'DELETE', 'PUT'])
+def group_meals_id(_name, _id):
+    groups_db = utils.get_all_groups()
+    if request.method == 'DELETE':
+        for group in groups_db:
+            if group['name'] == _name:
+                for instance in group['instances']:
+                    if instance['id'] == _id:
+                        group['instances'].remove(instance)
+                        utils.write_json_file('groups.json', groups_db)
+                        return jsonify(group)
+        # group = utils.get_group_by_name(_name)
+        # if group is not None:
+        #     for instance in group['instances']:
+        #         if instance['id'] == _id:
+        #             group['instances'].remove(instance)
+        #             utils.write_json_file('groups.json', groups_db)
+        #             return jsonify(group)
+        else:
+            return jsonify('error')
 
 
 # @app.route('/group/<_name>/add/<_instance>', methods=['GET', 'POST'])
