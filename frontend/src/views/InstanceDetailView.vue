@@ -4,6 +4,7 @@
 <template>
     <div class="InstanceDetailView">       
         <Alert ref="alertDetail" theme="success"></Alert>
+        <Alert ref="alertBox"></Alert>
         <div v-if="toggleModal">
             <Modal @close="toggleModal_">
                 <Alert ref="alertModal" theme="success"></Alert>
@@ -105,14 +106,33 @@
         </div>
 
         <div class="headr">
+            <div v-if="showGroupModal">
+                <SmallModal ref="modal" @close="handleGroupModalToggle">
+                    <h2>Groups</h2>
+                    <div class="groups box">
+                        <div v-for="group in groups" :key="group.id">
+                            <div class="group">
+                                <p>{{ group.name }}</p>
+                                <button @click="addInstaceToGroup(group)" class="btn-add-group">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button @click="handleGroupModalToggle" class="btn-close">Close</button>
+                    </div>
+                </SmallModal>
+            </div>
             <div class="edit">
                 <h1>Meal detail</h1>
-                <label>Edit </label>
 
-                <label v-if="showEdit" class="switch">
-                    <input type="checkbox" v-model="edit">
-                    <span class="round slider"></span>
-                </label>
+                <div class="settings">
+                    <label>Edit </label>
+                    <label v-if="showEdit" class="switch">
+                        <input type="checkbox" v-model="edit">
+                        <span class="round slider"></span>
+                    </label>
+                    <button class="add-to-group" @click="showGroupModal = true">Add to group</button>
+                </div>
             </div>
             <div v-if="edit">
                 <form @submit.prevent="handleSubmit">
@@ -178,10 +198,13 @@ import updateInstance from '@/composables/updateInstance'
 import Modal from '@/components/Modal.vue'
 import axios, { all } from 'axios'
 import Alert from '@/components/Alert.vue'
+import SmallModal from '@/components/SmallModal.vue'
+import getGroups from '@/composables/getGroups'
+import addMealsToGroup from '@/composables/addMealsToGroup'
 
 export default {
     components: {
-        Modal, Alert
+        Modal, Alert, SmallModal
     },
     data() {
         return {
@@ -201,9 +224,35 @@ export default {
             range_low: 0,
             range_high: 1000,
             showEdit: true,
+            showGroupModal: false,
+            groups: [],
         }
     },
     methods: {
+
+        alert(type, msg) {
+            this.$refs.alertBox.showAlert(type, msg);
+        },
+
+        addInstaceToGroup(group) {
+            // make ist of instance ids, in this instance only 1 id in list
+            const instance_ids = [this.instance.id]
+            addMealsToGroup(group.name, instance_ids)
+                .then(() => {
+                    this.$emit('updateGroups')
+                    this.alert('success', "Meal successfully added to group.");
+                })
+        },
+
+        handleGroupModalToggle() {
+            // update groups
+            getGroups()
+                .then((data) => {
+                    this.groups = data
+                    this.showGroupModal = !this.showGroupModal
+                })
+        },
+
         // handle submit button, update instance
         handleSubmit() {
             updateInstance(this.instance)
@@ -324,6 +373,11 @@ export default {
                 // log name of instance
                 console.log(this.instance.name)
             })
+        // fetch groups
+        getGroups()
+            .then((data) => {
+                this.groups = data
+            })
     },
     computed: {
         // filter ingredients
@@ -365,7 +419,69 @@ export default {
 
 <style scoped>
 
+.modal h2 {
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: sans-serif;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+.btn-add-group {
+    width: 60px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 5px;
+    transition: all 0.2s ease-in-out;
+}
 
+.btn-add-group:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.btn-close {
+    margin: 10px auto;
+    display: block;
+    width: 100px;
+    height: 40px;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(218, 69, 69);
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-close:hover {
+    background-color: rgb(218, 69, 69);
+    color: white;
+}
+
+.group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+}
+
+.add-to-group {
+    margin: 10px;
+    width: 100px;
+    height: 40px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+.add-to-group:hover {
+    background-color: var(--secondary-color);
+    color: white;
+}
 
 .headr{
     max-width: 500px;

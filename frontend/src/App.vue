@@ -151,7 +151,7 @@
       </div>
     </nav>
     <div class="content-container">
-      <router-view/>
+      <router-view @updateGroups="updateGroups"/>
     </div>
   </div>
 </template>
@@ -240,6 +240,7 @@ export default {
           this.handleModalToggle()
           this.selected_meals_ids = []
           this.updateGroups()
+          this.handleDropdownToggle()
         })
       this.selected_meals_ids = []
     },

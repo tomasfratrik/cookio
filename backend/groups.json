@@ -1,29 +1,11 @@
 [
     {
-        "name": "evening",
+        "name": "Breakfast",
         "color": "grey",
         "instances": [
             {
                 "id": "0f82885c-97ea-4b7b-988b-c387b74f996e",
                 "name": "Pancake 1 "
-            },
-            {
-                "id": "9b986146-8a55-4d29-b60e-5889608e6009",
-                "name": "Pancakes - worst"
-            }
-        ]
-    },
-    {
-        "name": "launch",
-        "color": "grey",
-        "instances": [
-            {
-                "id": "0f82885c-97ea-4b7b-988b-c387b74f996e",
-                "name": "Pancake 1 "
-            },
-            {
-                "id": "87a6415d-7272-4346-9535-7b324de97a09",
-                "name": "Potato soup"
             }
         ]
     }

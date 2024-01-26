@@ -30,21 +30,6 @@
                 ]
             },
             {
-                "id": "9b986146-8a55-4d29-b60e-5889608e6009",
-                "timestamp": "2024-01-09 12:06:54",
-                "name": "Pancakes - worst",
-                "desc": "",
-                "rating": 0,
-                "pinned": false,
-                "ingredients": [
-                    {
-                        "name": "flour",
-                        "quantity": 100,
-                        "unit": "Grams"
-                    }
-                ]
-            },
-            {
                 "id": "f59cc12e-537b-403d-aba5-ebe899b1ac7d",
                 "timestamp": "2024-01-09 12:22:16",
                 "name": "Pancakes 2",
@@ -59,15 +44,6 @@
                 "name": "Pancakes more sugar",
                 "desc": "",
                 "rating": 7,
-                "pinned": false,
-                "ingredients": []
-            },
-            {
-                "id": "0f4347ae-b0f4-4551-9271-65ba58ef3678",
-                "timestamp": "2024-01-09 12:29:26",
-                "name": "Pancakes - delete",
-                "desc": "",
-                "rating": -1,
                 "pinned": false,
                 "ingredients": []
             }
@@ -85,6 +61,72 @@
                 "desc": "",
                 "rating": 10,
                 "pinned": true,
+                "ingredients": []
+            }
+        ]
+    },
+    {
+        "class_name": "Burger",
+        "class_desc": "",
+        "id": "edffcc3e-2c2a-4b99-a9cf-a26b63ebee44",
+        "instances": [
+            {
+                "id": "e3856a2f-d762-4feb-b49e-55f229007c48",
+                "timestamp": "2024-01-25 19:01:25",
+                "name": "Burger",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "6a42304e-2840-4779-aaae-55478a61e5be",
+                "timestamp": "2024-01-25 19:01:42",
+                "name": "Burger 2",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            }
+        ]
+    },
+    {
+        "class_name": "Toast",
+        "class_desc": "",
+        "id": "e0f52a91-07e1-4921-8e25-3c88fa5dba55",
+        "instances": [
+            {
+                "id": "e6c22eb5-9caa-4e12-872e-9045a7202e1d",
+                "timestamp": "2024-01-25 19:02:27",
+                "name": "Toast",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
+                "ingredients": []
+            },
+            {
+                "id": "03b5b00f-1ede-4117-aed0-cecb1ffee02d",
+                "timestamp": "2024-01-25 19:03:02",
+                "name": "Toast - better",
+                "desc": "",
+                "rating": -1,
+                "pinned": true,
+                "ingredients": []
+            }
+        ]
+    },
+    {
+        "class_name": "Chicken",
+        "class_desc": "",
+        "id": "757e5b32-571d-49c4-9d41-1051ac76c89e",
+        "instances": [
+            {
+                "id": "43b2a953-b999-4545-bebc-a59835b5fbe2",
+                "timestamp": "2024-01-25 19:04:49",
+                "name": "Kung Pao Chicken",
+                "desc": "",
+                "rating": -1,
+                "pinned": false,
                 "ingredients": []
             }
         ]
